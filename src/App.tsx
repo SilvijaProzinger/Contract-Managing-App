@@ -38,6 +38,10 @@ function App() {
     }
   }, [setContracts, contracts]);
 
+  useEffect(() => {
+    console.log(contracts)
+  },[contracts])
+
   return (
     <>
       <ThemeProvider theme={theme}>

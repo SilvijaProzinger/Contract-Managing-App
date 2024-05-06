@@ -71,7 +71,7 @@ const FilterList = ({ screenWidth, open, toggleDrawer }: Props) => {
         </ListItemButton>
         <Collapse in={showCheckboxes} timeout="auto" unmountOnExit>
           <List component="div" disablePadding>
-            {buyerFiltersToDisplay.map((buyer: string) => {
+            {buyerFiltersToDisplay.map((buyer: any) => {
               return (
                 <FilterListItem
                   handleToggleCheckbox={handleToggleCheckbox}

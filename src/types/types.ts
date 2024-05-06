@@ -1,17 +1,3 @@
-declare module "@mui/material/styles" {
-  interface Theme {
-    status: {
-      danger: string;
-    };
-  }
-  // allow configuration using `createTheme`
-  interface ThemeOptions {
-    status?: {
-      danger?: string;
-    };
-  }
-}
-
 export type Contract = {
   id: number;
   kupac: string;
@@ -27,6 +13,7 @@ export type ContractsState = {
   setContracts: (newContracts: Contract[]) => void;
   addContract: (newContract: Contract) => void;
   updateContract: (updatedContract: Contract) => void;
+  getContractById: (id: number) => Contract | undefined;
 };
 
 export type Item = {
@@ -45,4 +32,3 @@ export type ItemState = {
   items: Item[];
   setItems: (newItems: Item[]) => void;
 };
-
