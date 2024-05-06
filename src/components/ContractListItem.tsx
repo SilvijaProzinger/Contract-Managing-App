@@ -29,11 +29,13 @@ const ContractListItem = ({ contract }: Props) => {
       }}
     >
       <Box>
-        <Typography variant="h6">{contract.kupac}</Typography>
-        <Typography>{contract.broj_ugovora}</Typography>
-        <Typography>{convertDate(contract.rok_isporuke)}</Typography>
+        <Typography variant="h6" pb={1}>{contract.kupac}</Typography>
+        <Typography>Broj ugovora: {contract.broj_ugovora}</Typography>
+        <Typography>
+          Datum isporuke: {convertDate(contract.rok_isporuke)}
+        </Typography>
       </Box>
-      <Badge sx={{ bgcolor: getStatusColor(contract.status), p: 1 }}>
+      <Badge sx={{ bgcolor: getStatusColor(contract.status), p: 1, color:'white', borderRadius:'4px' }}>
         {contract.status}
       </Badge>
     </Card>

@@ -50,5 +50,13 @@
     "datum_akontacije": "2024-03-14",
     "rok_isporuke": "2024-08-13",
     "status": "KREIRANO"
+  },
+  {
+    "id": 5,
+    "kupac": "Tia Janković",
+    "broj_ugovora": "4/2024",
+    "datum_akontacije": "2024-03-14",
+    "rok_isporuke": "2024-08-13",
+    "status": "KREIRANO"
   }
 ]
