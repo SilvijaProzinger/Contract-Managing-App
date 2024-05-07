@@ -1,17 +1,48 @@
+import { useState, useEffect } from "react";
 import { Stack, Button } from "@mui/material";
 import { Contract } from "../types/types";
 import { useContractsStore } from "../store/contractsStore";
 import ContractListItem from "./ContractListItem";
 import AddNewContract from "./AddNewContract";
-import { useState } from "react";
 
-const ContractList = () => {
+type Props = {
+  filters: string[];
+};
+
+const ContractList = ({ filters }: Props) => {
   const { contracts } = useContractsStore();
   const [isNewModalOpen, setIsNewModal] = useState(false);
+  const [filteredContractList, setFilteredContractList] = useState([]);
+
+  // filter the contracts list based on selected filters
+  useEffect(() => {
+    if (filters.length > 0) {
+      const statusFilter = contracts.filter((contract: Contract) => {
+        if (filters.includes("aktivan")) {
+          return (
+            contract.status === "KREIRANO" || contract.status === "NARUČENO"
+          );
+        } else if (filters.includes("neaktivan")) {
+          return contract.status === "ISPORUČENO";
+        } else {
+          return contract.status;
+        }
+      });
+
+      const filteredList = contracts.filter((contract: Contract) => {
+        return filters.includes(contract.kupac) && filters.includes(statusFilter)
+      });
+      setFilteredContractList(filteredList);
+    } else {
+      setFilteredContractList(contracts);
+    }
+  }, [contracts, filters]);
+
+  useEffect(() => {});
 
   const handleOpenNewModal = () => {
-    setIsNewModal(true)
-  }
+    setIsNewModal(true);
+  };
 
   const handleCloseNewModal = () => {
     setIsNewModal(false);
@@ -28,7 +59,7 @@ const ContractList = () => {
         >
           Add new contract
         </Button>
-        {contracts.map((contract: Contract) => (
+        {filteredContractList.map((contract: Contract) => (
           <ContractListItem key={contract.id} contract={contract} />
         ))}
       </Stack>

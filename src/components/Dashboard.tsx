@@ -12,6 +12,7 @@ type Props = {
 const Dashboard = ({ loading, error }: Props) => {
   const [open, setOpen] = useState(false);
   const [screenWidth, setScreenWidth] = useState(window.innerWidth);
+  const [filters, setFilters] = useState<string[]>([])
 
   // check window width to apply appropriate filter drawer variant
   useEffect(() => {
@@ -29,6 +30,10 @@ const Dashboard = ({ loading, error }: Props) => {
     setOpen(!open);
   };
 
+  const filterContracts = (appliedFilters: string[]) => {
+    setFilters(appliedFilters)
+  }
+
   if (loading) {
     return <p>Loading...</p>;
   }
@@ -44,9 +49,14 @@ const Dashboard = ({ loading, error }: Props) => {
         screenWidth={screenWidth}
         toggleDrawer={toggleDrawer}
       />
-      <FilterList screenWidth={screenWidth} open={open} toggleDrawer={toggleDrawer}/>
+      <FilterList
+        screenWidth={screenWidth}
+        open={open}
+        toggleDrawer={toggleDrawer}
+        filterContracts={filterContracts}
+      />
       <Container maxWidth="lg" sx={{ p: 3 }}>
-        <ContractList />
+        <ContractList filters={filters}/>
       </Container>
     </Container>
   );

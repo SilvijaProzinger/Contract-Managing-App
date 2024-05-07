@@ -3,10 +3,11 @@ import {
   List,
   ListItemText,
   ListItemButton,
-  Checkbox,
   Collapse,
   Box,
+  Typography,
 } from "@mui/material";
+import { styled } from "@mui/material/styles";
 import ExpandLess from "@mui/icons-material/ExpandLess";
 import ExpandMore from "@mui/icons-material/ExpandMore";
 import FilterListItem from "./FilterListItem";
@@ -18,24 +19,40 @@ type Props = {
   screenWidth: number;
   open: boolean;
   toggleDrawer: () => void;
+  filterContracts: (appliedFilters: string[]) => void;
 };
 
-const FilterList = ({ screenWidth, open, toggleDrawer }: Props) => {
+const DrawerCustom = styled(Drawer)({
+  width: "300px",
+  "& .MuiDrawer-paper": {
+    width: "300px",
+    marginTop: "70px",
+    paddingTop: "32px",
+  },
+});
+
+const FilterList = ({ screenWidth, open, toggleDrawer, filterContracts }: Props) => {
   const { contracts } = useContractsStore();
   const [showCheckboxes, setShowCheckboxes] = useState(true);
   const [checkedFilter, setCheckedFilter] = useState<string[]>([]);
 
   // show only unique values for filtering in case one buyer shows up multiple times
   const buyerFiltersToDisplay = Array.from(
-    new Set(contracts.map((contract: Contract) => contract.kupac))
+    new Set<string>(contracts.map((contract: Contract) => contract.kupac))
   );
 
-  // create 'active' or 'inactive' filter values for contract status 
-  const statusFiltersToDisplay = contracts.map((contract: Contract) => {
-    if (contract.status === 'KREIRANO' || contract.status === 'NARUČENO') return 'aktivan'
-    else return ('neaktivan')
-  })
+  // create 'active' or 'inactive' filter values for contract status
+  const statusFiltersToDisplay = Array.from(
+    new Set<string>(
+      contracts.map((contract: Contract) => {
+        if (contract.status === "KREIRANO" || contract.status === "NARUČENO")
+          return "aktivan";
+        else return "neaktivan";
+      })
+    )
+  );
 
+  // toggle filter checkboxes and add them to filter state
   const handleToggleCheckbox = (value: string) => () => {
     const currentIndex = checkedFilter.indexOf(value);
     const newChecked = [...checkedFilter];
@@ -49,21 +66,25 @@ const FilterList = ({ screenWidth, open, toggleDrawer }: Props) => {
     setCheckedFilter(newChecked);
   };
 
+  // toggle filter group dropdown
   const handleToggleFilterGroup = () => {
     setShowCheckboxes(!showCheckboxes);
   };
 
   useEffect(() => {
-    console.log(checkedFilter, buyerFiltersToDisplay, statusFiltersToDisplay);
-  }, [checkedFilter, buyerFiltersToDisplay, statusFiltersToDisplay]);
+    filterContracts(checkedFilter)
+  }, [filterContracts, checkedFilter]);
 
   return (
-    <Drawer
+    <DrawerCustom
       open={open}
       onClose={toggleDrawer}
       variant={screenWidth > 1200 ? "permanent" : "temporary"}
       anchor={"left"}
     >
+      <Typography variant="h6" pl={2} pb={2}>
+        Filter contracts
+      </Typography>
       <Box>
         <ListItemButton onClick={handleToggleFilterGroup}>
           <ListItemText primary="Kupac" />
@@ -71,7 +92,7 @@ const FilterList = ({ screenWidth, open, toggleDrawer }: Props) => {
         </ListItemButton>
         <Collapse in={showCheckboxes} timeout="auto" unmountOnExit>
           <List component="div" disablePadding>
-            {buyerFiltersToDisplay.map((buyer: any) => {
+            {buyerFiltersToDisplay.map((buyer: string) => {
               return (
                 <FilterListItem
                   handleToggleCheckbox={handleToggleCheckbox}
@@ -84,37 +105,27 @@ const FilterList = ({ screenWidth, open, toggleDrawer }: Props) => {
           </List>
         </Collapse>
       </Box>
-      {/*<Box>
+      <Box>
         <ListItemButton onClick={handleToggleFilterGroup}>
-          <ListItemText primary="Aktivnost" />
+          <ListItemText primary="Status" />
           {showCheckboxes ? <ExpandLess /> : <ExpandMore />}
         </ListItemButton>
         <Collapse in={showCheckboxes} timeout="auto" unmountOnExit>
           <List component="div" disablePadding>
-            {contracts.map((contract: Contract) => {
-              const labelId = `${contract.status}`;
+            {statusFiltersToDisplay.map((status: string) => {
               return (
-                <ListItemButton
-                  key={contract.kupac}
-                  role={undefined}
-                  onClick={handleToggleCheckbox(contract.status)}
-                  dense
-                >
-                  <Checkbox
-                    edge="start"
-                    checked={checkedFilter.indexOf(contract.status) !== -1}
-                    tabIndex={-1}
-                    disableRipple
-                    inputProps={{ "aria-labelledby": labelId }}
-                  />
-                  <ListItemText id={labelId} primary={contract.status} />
-                </ListItemButton>
+                <FilterListItem
+                  handleToggleCheckbox={handleToggleCheckbox}
+                  labelId={status}
+                  propertyToFilter={status}
+                  isChecked={checkedFilter.indexOf(status) !== -1}
+                />
               );
             })}
           </List>
         </Collapse>
-        </Box>*/}
-    </Drawer>
+      </Box>
+    </DrawerCustom>
   );
 };
 

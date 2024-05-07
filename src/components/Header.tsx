@@ -21,7 +21,7 @@ const Header = ({ title, screenWidth, toggleDrawer }: Props) => {
     <CustomAppBar position="static">
       <Grid container alignItems="center">
         {shouldShowFilterButton && (
-          <Grid item>
+          <Grid pl={3} item>
             <IconButton onClick={toggleDrawer}>
               <FilterListIcon />
             </IconButton>

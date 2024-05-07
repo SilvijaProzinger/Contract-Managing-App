@@ -8,6 +8,7 @@ import {
   TextField,
   Button,
   Typography,
+  InputAdornment,
 } from "@mui/material";
 import { useContractsStore } from "../store/contractsStore";
 import { Contract } from "../types/types";
@@ -23,12 +24,12 @@ const EditContract = ({ contractId, isEditModalOpen, onClose }: Props) => {
   const contract = getContractById(contractId); // select the right contract object from the state by its id
 
   const [editedContract, setEditedContract] = useState<Contract>(contract);
-  const [statusWarning, setStatusWarning] = useState("");
+  const [invalidStatus, setInvalidStatus] = useState(false);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
 
-    setStatusWarning("");
+    //setStatusWarning("");
     // ensure the status can only be changed into accepted values
     if (name === "status") {
       if (value === "") {
@@ -45,9 +46,6 @@ const EditContract = ({ contractId, isEditModalOpen, onClose }: Props) => {
           status: value,
         }));
       } else {
-        setStatusWarning(
-          `An error has occurred. The status can't go from ${editedContract.status} to ${value}.`
-        );
       }
     } else {
       setEditedContract((prevContract) => ({
@@ -72,26 +70,38 @@ const EditContract = ({ contractId, isEditModalOpen, onClose }: Props) => {
         This is where you can edit delivery date or status.
       </DialogContentText>
       <DialogContent>
-        <TextField
-          margin="dense"
-          id="rok_isporuke"
-          name="rok_isporuke"
-          label="Rok isporuke"
-          fullWidth
-          value={editedContract?.rok_isporuke || ""}
-          onChange={handleInputChange}
-        />
+        {contract.status !== "ISPORUČENO" && (
+          <TextField
+            margin="dense"
+            id="rok_isporuke"
+            name="rok_isporuke"
+            label="Rok isporuke"
+            fullWidth
+            value={editedContract?.rok_isporuke || ""}
+            onChange={handleInputChange}
+            InputProps={{
+              inputProps: {
+                pattern: "\\d{4}-\\d{2}-\\d{2}",
+                title: "Date must be in YYYY-MM-DD format",
+              },
+              startAdornment: (
+                <InputAdornment position="start">(YYYY-MM-DD)</InputAdornment>
+              ),
+            }}
+          />
+        )}
         <TextField
           margin="dense"
           id="status"
           name="status"
           label="Status"
+          error={invalidStatus}
+          helperText="Incorrect value"
           fullWidth
           value={editedContract?.status || ""}
           onChange={handleInputChange}
         />
       </DialogContent>
-      {statusWarning && <Typography>{statusWarning}</Typography>}
       <DialogActions>
         <Button onClick={onClose}>Cancel</Button>
         <Button onClick={handleSubmit} color="primary">

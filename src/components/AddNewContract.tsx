@@ -6,6 +6,7 @@ import {
   DialogContent,
   TextField,
   Button,
+  InputAdornment,
 } from "@mui/material";
 import { Contract } from "../types/types";
 import { useContractsStore } from "../store/contractsStore";
@@ -37,6 +38,7 @@ const AddNewContract = ({ isNewModalOpen, onClose }: Props) => {
 
   const handleSubmit = () => {
     addContract(newContractData);
+    onClose();
   };
 
   return (
@@ -72,6 +74,15 @@ const AddNewContract = ({ isNewModalOpen, onClose }: Props) => {
           value={newContractData.rok_isporuke}
           onChange={handleInputChange}
           required
+          InputProps={{
+            inputProps: {
+              pattern: "\\d{4}-\\d{2}-\\d{2}",
+              title: "Date must be in YYYY-MM-DD format",
+            },
+            startAdornment: (
+              <InputAdornment position="start">(YYYY-MM-DD)</InputAdornment>
+            ),
+          }}
         />
         <TextField
           margin="dense"
@@ -82,6 +93,15 @@ const AddNewContract = ({ isNewModalOpen, onClose }: Props) => {
           value={newContractData.datum_akontacije}
           onChange={handleInputChange}
           required
+          InputProps={{
+            inputProps: {
+              pattern: "\\d{4}-\\d{2}-\\d{2}",
+              title: "Date must be in YYYY-MM-DD format",
+            },
+            startAdornment: (
+              <InputAdornment position="start">(YYYY-MM-DD)</InputAdornment>
+            ),
+          }}
         />
       </DialogContent>
       <DialogActions>
