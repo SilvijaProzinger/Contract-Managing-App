@@ -3,9 +3,10 @@ import useFetch from "./hooks/useFetch";
 import Dashboard from "./components/Dashboard";
 import { useContractsStore } from "./store/contractsStore";
 import { fetchContracts } from "./utils/fetchFromContractsApi";
-import "./App.css";
 import { Contract } from "./types/types";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import "./App.css";
+import "@fontsource/lato";
 
 const theme = createTheme({
   palette: {
@@ -20,8 +21,11 @@ const theme = createTheme({
     },
   },
   typography: {
+    allVariants: {
+      fontFamily: "Lato",
+    },
     h1: {
-      fontSize: '3rem',
+      fontSize: "3rem",
       color: "#313d44",
     },
   },
@@ -39,8 +43,8 @@ function App() {
   }, [setContracts, contracts]);
 
   useEffect(() => {
-    console.log(contracts)
-  },[contracts])
+    console.log(contracts);
+  }, [contracts]);
 
   return (
     <>
