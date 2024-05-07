@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
-import { Stack, Button } from "@mui/material";
+import { Stack, Button, Container } from "@mui/material";
+import { useTheme } from "@mui/material/styles";
+import useMediaQuery from "@mui/material/useMediaQuery";
 import { Contract } from "../types/types";
 import { useContractsStore } from "../store/contractsStore";
 import ContractListItem from "./ContractListItem";
@@ -13,6 +15,9 @@ const ContractList = ({ filters }: Props) => {
   const { contracts } = useContractsStore();
   const [isNewModalOpen, setIsNewModal] = useState(false);
   const [filteredContractList, setFilteredContractList] = useState([]);
+
+  const theme = useTheme();
+  const isDesktop = useMediaQuery(theme.breakpoints.up("md"));
 
   // filter the contracts list based on selected filters
   useEffect(() => {
@@ -30,7 +35,10 @@ const ContractList = ({ filters }: Props) => {
       });
 
       const filteredList = contracts.filter((contract: Contract) => {
-        return filters.includes(contract.kupac) && filters.includes(statusFilter)
+        console.log("STATUS", statusFilter);
+        return (
+          filters.includes(contract.kupac) || contract.status === statusFilter
+        );
       });
       setFilteredContractList(filteredList);
     } else {
@@ -38,7 +46,9 @@ const ContractList = ({ filters }: Props) => {
     }
   }, [contracts, filters]);
 
-  useEffect(() => {});
+  useEffect(() => {
+    console.log(filteredContractList);
+  }, [filteredContractList]);
 
   const handleOpenNewModal = () => {
     setIsNewModal(true);
@@ -49,7 +59,13 @@ const ContractList = ({ filters }: Props) => {
   };
 
   return (
-    <>
+    <Container
+      maxWidth={false}
+      disableGutters
+      sx={{
+        marginLeft: isDesktop ? '100px' : 0
+      }}
+    >
       <Stack spacing={4}>
         <Button
           variant="outlined"
@@ -67,7 +83,7 @@ const ContractList = ({ filters }: Props) => {
         isNewModalOpen={isNewModalOpen}
         onClose={handleCloseNewModal}
       />
-    </>
+    </Container>
   );
 };
 

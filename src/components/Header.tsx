@@ -6,16 +6,18 @@ import { styled } from "@mui/material/styles";
 const CustomAppBar = styled(AppBar)({
   backgroundColor: "#b6ccd8",
   boxShadow: "none",
+  zIndex: '5',
+  position: 'relative'
 });
 
 type Props = {
   title: string;
-  screenWidth: number;
+  isDesktop: boolean;
   toggleDrawer: () => void;
 };
 
-const Header = ({ title, screenWidth, toggleDrawer }: Props) => {
-  const shouldShowFilterButton = screenWidth < 1200 && title === "Contracts";
+const Header = ({ title, isDesktop, toggleDrawer }: Props) => {
+  const shouldShowFilterButton = !isDesktop && title === "Contracts";
 
   return (
     <CustomAppBar position="static">

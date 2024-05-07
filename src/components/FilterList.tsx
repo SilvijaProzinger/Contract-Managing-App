@@ -16,7 +16,7 @@ import { useEffect, useState } from "react";
 import { Contract } from "../types/types";
 
 type Props = {
-  screenWidth: number;
+  isDesktop: boolean;
   open: boolean;
   toggleDrawer: () => void;
   filterContracts: (appliedFilters: string[]) => void;
@@ -26,12 +26,17 @@ const DrawerCustom = styled(Drawer)({
   width: "300px",
   "& .MuiDrawer-paper": {
     width: "300px",
-    marginTop: "70px",
-    paddingTop: "32px",
+    paddingTop: "100px",
+    zIndex: 4,
   },
 });
 
-const FilterList = ({ screenWidth, open, toggleDrawer, filterContracts }: Props) => {
+const FilterList = ({
+  isDesktop,
+  open,
+  toggleDrawer,
+  filterContracts,
+}: Props) => {
   const { contracts } = useContractsStore();
   const [showCheckboxes, setShowCheckboxes] = useState(true);
   const [checkedFilter, setCheckedFilter] = useState<string[]>([]);
@@ -53,7 +58,7 @@ const FilterList = ({ screenWidth, open, toggleDrawer, filterContracts }: Props)
   );
 
   // toggle filter checkboxes and add them to filter state
-  const handleToggleCheckbox = (value: string) => () => {
+  const handleToggleCheckbox = (value: string) => {
     const currentIndex = checkedFilter.indexOf(value);
     const newChecked = [...checkedFilter];
 
@@ -72,14 +77,14 @@ const FilterList = ({ screenWidth, open, toggleDrawer, filterContracts }: Props)
   };
 
   useEffect(() => {
-    filterContracts(checkedFilter)
+    filterContracts(checkedFilter);
   }, [filterContracts, checkedFilter]);
 
   return (
     <DrawerCustom
       open={open}
       onClose={toggleDrawer}
-      variant={screenWidth > 1200 ? "permanent" : "temporary"}
+      variant={isDesktop ? "permanent" : "temporary"}
       anchor={"left"}
     >
       <Typography variant="h6" pl={2} pb={2}>
@@ -92,9 +97,10 @@ const FilterList = ({ screenWidth, open, toggleDrawer, filterContracts }: Props)
         </ListItemButton>
         <Collapse in={showCheckboxes} timeout="auto" unmountOnExit>
           <List component="div" disablePadding>
-            {buyerFiltersToDisplay.map((buyer: string) => {
+            {buyerFiltersToDisplay.map((buyer: string, index: number) => {
               return (
                 <FilterListItem
+                  key={index}
                   handleToggleCheckbox={handleToggleCheckbox}
                   labelId={buyer}
                   propertyToFilter={buyer}
@@ -112,9 +118,10 @@ const FilterList = ({ screenWidth, open, toggleDrawer, filterContracts }: Props)
         </ListItemButton>
         <Collapse in={showCheckboxes} timeout="auto" unmountOnExit>
           <List component="div" disablePadding>
-            {statusFiltersToDisplay.map((status: string) => {
+            {statusFiltersToDisplay.map((status: string, index: number) => {
               return (
                 <FilterListItem
+                  key={index}
                   handleToggleCheckbox={handleToggleCheckbox}
                   labelId={status}
                   propertyToFilter={status}

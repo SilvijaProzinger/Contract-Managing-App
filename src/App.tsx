@@ -5,6 +5,7 @@ import { useContractsStore } from "./store/contractsStore";
 import { fetchContracts } from "./utils/fetchFromContractsApi";
 import { Contract } from "./types/types";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { CssBaseline } from '@mui/material/';
 import "./App.css";
 import "@fontsource/lato";
 
@@ -49,6 +50,7 @@ function App() {
   return (
     <>
       <ThemeProvider theme={theme}>
+        <CssBaseline />
         <Dashboard loading={loading} error={error} />
       </ThemeProvider>
     </>

@@ -22,7 +22,7 @@ const FilterListItem = ({
     <ListItem>
       <ListItemButton
         key={propertyToFilter}
-        onClick={handleToggleCheckbox(propertyToFilter)}
+        onClick={() => handleToggleCheckbox(propertyToFilter)}
         dense
       >
         <Checkbox
