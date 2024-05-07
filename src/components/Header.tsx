@@ -12,8 +12,8 @@ const CustomAppBar = styled(AppBar)({
 
 type Props = {
   title: string;
-  isDesktop: boolean;
-  toggleDrawer: () => void;
+  isDesktop?: boolean;
+  toggleDrawer?: () => void;
 };
 
 const Header = ({ title, isDesktop, toggleDrawer }: Props) => {

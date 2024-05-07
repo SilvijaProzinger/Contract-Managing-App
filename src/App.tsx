@@ -1,11 +1,13 @@
 import { useEffect } from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import useFetch from "./hooks/useFetch";
 import Dashboard from "./components/Dashboard";
+import ContractDetails from "./components/ContractDetails";
 import { useContractsStore } from "./store/contractsStore";
 import { fetchContracts } from "./utils/fetchFromContractsApi";
 import { Contract } from "./types/types";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { CssBaseline } from '@mui/material/';
+import { CssBaseline } from "@mui/material/";
 import "./App.css";
 import "@fontsource/lato";
 
@@ -51,7 +53,15 @@ function App() {
     <>
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        <Dashboard loading={loading} error={error} />
+        <BrowserRouter>
+          <Routes>
+            <Route
+              path="/"
+              element={<Dashboard loading={loading} error={error} />}
+            />
+            <Route path="/contract/:id" element={<ContractDetails />} />
+          </Routes>
+        </BrowserRouter>
       </ThemeProvider>
     </>
   );
