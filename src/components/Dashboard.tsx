@@ -28,7 +28,7 @@ const Dashboard = ({ loading, error }: Props) => {
   };
 
   return (
-    <Container maxWidth={false} disableGutters>
+    <Container maxWidth={false} disableGutters sx={{ position: "relative", height: '100vh' }}>
       <Header
         title={"Contracts"}
         isDesktop={isDesktop}
@@ -41,13 +41,15 @@ const Dashboard = ({ loading, error }: Props) => {
         </Typography>
       ) : (
         <>
-          <FilterList
-            isDesktop={isDesktop}
-            open={open}
-            toggleDrawer={toggleDrawer}
-            filterContracts={filterContracts}
-          />
-          <Container maxWidth="md" sx={{ p: 3 }}>
+          {!loading || !error ? (
+            <FilterList
+              isDesktop={isDesktop}
+              open={open}
+              toggleDrawer={toggleDrawer}
+              filterContracts={filterContracts}
+            />
+          ) : null}
+          <Container maxWidth="md" sx={{ p: 4 }}>
             <ContractList filters={filters} />
           </Container>
         </>

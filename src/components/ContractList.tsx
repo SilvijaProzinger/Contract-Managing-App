@@ -14,7 +14,9 @@ type Props = {
 const ContractList = ({ filters }: Props) => {
   const { contracts } = useContractsStore();
   const [isNewModalOpen, setIsNewModal] = useState(false);
-  const [filteredContractList, setFilteredContractList] = useState([]);
+  const [filteredContractList, setFilteredContractList] = useState<Contract[]>(
+    []
+  );
 
   const theme = useTheme();
   const isDesktop = useMediaQuery(theme.breakpoints.up("md"));
@@ -35,9 +37,8 @@ const ContractList = ({ filters }: Props) => {
       });
 
       const filteredList = contracts.filter((contract: Contract) => {
-        console.log("STATUS", statusFilter);
         return (
-          filters.includes(contract.kupac) || contract.status === statusFilter
+          filters.includes(contract.kupac) && statusFilter.includes(contract)
         );
       });
       setFilteredContractList(filteredList);
@@ -45,10 +46,6 @@ const ContractList = ({ filters }: Props) => {
       setFilteredContractList(contracts);
     }
   }, [contracts, filters]);
-
-  useEffect(() => {
-    console.log(filteredContractList);
-  }, [filteredContractList]);
 
   const handleOpenNewModal = () => {
     setIsNewModal(true);
@@ -63,7 +60,7 @@ const ContractList = ({ filters }: Props) => {
       maxWidth={false}
       disableGutters
       sx={{
-        marginLeft: isDesktop ? '100px' : 0
+        marginLeft: isDesktop ? "100px" : 0,
       }}
     >
       <Stack spacing={4}>

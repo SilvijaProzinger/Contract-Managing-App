@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useParams } from "react-router";
 import {
   Container,
@@ -17,61 +17,68 @@ import { useContractsStore } from "../store/contractsStore";
 import { fetchItems } from "../utils/fetchFromItemsApi";
 import useFetch from "../hooks/useFetch";
 import ContractItems from "./ContractItems";
+import { fetchContracts } from "../utils/fetchFromContractsApi";
 
 const ContractDetails = () => {
   const { id } = useParams();
-  const { contracts } = useContractsStore.getState();
+  const { contracts, setContracts } = useContractsStore.getState();
   const { setItems } = useItemsStore();
   const { data: items, loading, error } = useFetch(fetchItems); // fetch items
+  const { data } = useFetch(fetchContracts); // fetch items
 
-  const [contract, setContract] = useState<Contract | undefined>(undefined);
+  const [contractDetails, setContractDetails] = useState<Contract | undefined>(
+    undefined
+  );
   const [relatedItems, setRelatedItems] = useState<Item[]>([]);
 
-  const getContractById = (id: number) => {
-    const { contracts } = useContractsStore.getState();
-    return contracts.find((contract: Contract) => contract.id === id);
-  };
+  const getContractById = useCallback(
+    (id: number) => {
+      return contracts?.find((contract: Contract) => contract.id === id);
+    },
+    [contracts]
+  );
 
   // if url param id exists, get contract with that same id from state
   useEffect(() => {
     if (id) {
+      setContracts(data as Contract[]);
       const contractById = getContractById(parseInt(id));
-      setContract(contractById);
+      setContractDetails(contractById);
     }
-  }, [contracts, id]);
+  }, [getContractById, setContracts, data, id]);
 
   // call set method from store and update items state array
   useEffect(() => {
-    if (contract) {
+    if (contractDetails) {
       setItems(items as Items[]);
     }
-  }, [setItems, contract, items]);
+  }, [setItems, contractDetails, items]);
 
   useEffect(() => {
-    if (contract) {
+    if (contractDetails) {
       const matchedItems =
         (items as Items[]).find(
           (item: Items) =>
-            item.broj_ugovora === (contract as Contract).broj_ugovora
+            item.broj_ugovora === (contractDetails as Contract).broj_ugovora
         )?.artikli || [];
       setRelatedItems(matchedItems);
     }
-  }, [contract, items]);
+  }, [contractDetails, items]);
 
   return (
     <Container maxWidth={false} disableGutters>
       <Header title={"Contract Details"} />
-      {loading && <CircularProgress sx={{ margin: '1rem'}} />}
+      {loading && <CircularProgress sx={{ margin: "1rem" }} />}
       {error && (
         <Typography variant="h3">
           No data found. Please try a different contract.
         </Typography>
       )}
-      {contract && (
+      {contractDetails && (
         <Card sx={{ maxWidth: "800px", marginLeft: "1rem", marginTop: "1rem" }}>
           <CardContent>
             <Typography variant="h2" sx={{ marginBottom: "1rem" }}>
-              {(contract as Contract).broj_ugovora}
+              {(contractDetails as Contract).broj_ugovora}
             </Typography>
             <Typography
               fontWeight={600}
@@ -80,7 +87,7 @@ const ContractDetails = () => {
             >
               Kupac:
             </Typography>
-            <Typography>{(contract as Contract).kupac}</Typography>
+            <Typography>{(contractDetails as Contract).kupac}</Typography>
             <Divider sx={{ marginTop: "1rem", marginBottom: "1rem" }} />
             <Typography
               fontWeight={600}
@@ -90,7 +97,7 @@ const ContractDetails = () => {
               Datum akontacije:{" "}
             </Typography>
             <Typography>
-              {convertDate((contract as Contract).datum_akontacije)}
+              {convertDate((contractDetails as Contract).datum_akontacije)}
             </Typography>
             <Divider sx={{ marginTop: "1rem", marginBottom: "1rem" }} />
             <Typography
@@ -101,7 +108,7 @@ const ContractDetails = () => {
               Rok isporuke:
             </Typography>
             <Typography>
-              {convertDate((contract as Contract).rok_isporuke)}
+              {convertDate((contractDetails as Contract).rok_isporuke)}
             </Typography>
             <Divider sx={{ marginTop: "1rem", marginBottom: "1rem" }} />
             <Typography
@@ -112,7 +119,7 @@ const ContractDetails = () => {
               Status:
             </Typography>
             <Typography>
-              {(contract as Contract).status.toLowerCase()}
+              {(contractDetails as Contract).status.toLowerCase()}
             </Typography>
             <Divider sx={{ marginTop: "1rem", marginBottom: "1rem" }} />
             <Typography variant="h6" sx={{ marginTop: "1rem" }}>

@@ -1,8 +1,9 @@
-import { Card, Typography, Box, Button } from "@mui/material";
-import { Link } from "react-router-dom";
+import { useState } from "react";
+import { Link as RouterLink } from "react-router-dom";
+import { Card, Typography, Box, Button, Link } from "@mui/material";
+import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import { Contract } from "../types/types";
 import StatusBadge from "./StatusBadge";
-import { useState } from "react";
 import EditContract from "./EditContract";
 import { convertDate } from "../utils/convertDate";
 
@@ -41,16 +42,21 @@ const ContractListItem = ({ contract }: Props) => {
         </Box>
         <StatusBadge status={contract.status} />
       </Box>
-      <Box sx={{ width: "fit-content", mt: 3 }}>
-        <Button variant="outlined" color="primary" onClick={openEditModal}>
-          Edit
+      <Link
+        component={RouterLink}
+        to={`/contract/${contract.id}`}
+        color="primary"
+        underline="always"
+        fontWeight={600}
+        sx={{ display: "flex", alignContent: "center", marginTop: "1rem" }}
+      >
+        View contract details
+        <ArrowForwardIcon />
+      </Link>
+      <Box sx={{ mt: 3 }}>
+        <Button variant="contained" color="primary" onClick={openEditModal}>
+          Edit contract
         </Button>
-        <Link to={`/contract/${contract.id}`}>
-          {" "}
-          <Button variant="contained" color="primary" sx={{ ml: 1 }}>
-            View
-          </Button>
-        </Link>
       </Box>
       <EditContract
         contractId={contract.id}

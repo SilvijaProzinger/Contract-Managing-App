@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import {
   Dialog,
   DialogTitle,
@@ -7,7 +7,6 @@ import {
   DialogActions,
   TextField,
   Button,
-  Typography,
   InputAdornment,
 } from "@mui/material";
 import { useContractsStore } from "../store/contractsStore";
@@ -20,44 +19,50 @@ type Props = {
 };
 
 const EditContract = ({ contractId, isEditModalOpen, onClose }: Props) => {
-  const { getContractById, updateContract } = useContractsStore();
-  const contract = getContractById(contractId); // select the right contract object from the state by its id
+  const { getContractById, updateContract, contracts } = useContractsStore();
+  const contract = (getContractById as (id: number) => Contract)(contractId); // select the right contract object from the state by its id
 
   const [editedContract, setEditedContract] = useState<Contract>(contract);
   const [invalidStatus, setInvalidStatus] = useState(false);
 
+  const validateStatusChange = useCallback(
+    (newStatus: string) => {
+      if (newStatus === "") setInvalidStatus(true);
+      if (newStatus !== editedContract?.status) {
+        if (
+          (editedContract?.status === "KREIRANO" && newStatus === "NARUČENO") ||
+          (editedContract?.status === "NARUČENO" && newStatus === "ISPORUČENO")
+        ) {
+          setInvalidStatus(false);
+        } else {
+          setInvalidStatus(true);
+        }
+      }
+    },
+    [editedContract?.status]
+  );
+
+  useEffect(() => {
+    validateStatusChange(editedContract.status);
+  }, [validateStatusChange, editedContract.status]);
+
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
 
-    //setStatusWarning("");
-    // ensure the status can only be changed into accepted values
-    if (name === "status") {
-      if (value === "") {
-        setEditedContract((prevContract) => ({
-          ...prevContract,
-          [name]: value,
-        }));
-      } else if (
-        (editedContract.status === "KREIRANO" && value === "NARUČENO") ||
-        (editedContract.status === "NARUČENO" && value === "ISPORUČENO")
-      ) {
-        setEditedContract((prevContract) => ({
-          ...prevContract,
-          status: value,
-        }));
-      } else {
-      }
-    } else {
-      setEditedContract((prevContract) => ({
+    setEditedContract(
+      (prevContract): Contract => ({
         ...prevContract,
         [name]: value,
-      }));
-    }
+      })
+    );
   };
 
+  useEffect(() => {
+    console.log(invalidStatus);
+  }, [invalidStatus]);
+
   const handleSubmit = () => {
-    if (editedContract) {
-      // call the store method to update the selected contract
+    if (editedContract && !invalidStatus) {
       updateContract(editedContract);
       onClose();
     }
@@ -70,7 +75,7 @@ const EditContract = ({ contractId, isEditModalOpen, onClose }: Props) => {
         This is where you can edit delivery date or status.
       </DialogContentText>
       <DialogContent>
-        {contract.status !== "ISPORUČENO" && (
+        {contract?.status !== "ISPORUČENO" && (
           <TextField
             margin="dense"
             id="rok_isporuke"
@@ -96,7 +101,7 @@ const EditContract = ({ contractId, isEditModalOpen, onClose }: Props) => {
           name="status"
           label="Status"
           error={invalidStatus}
-          helperText="Incorrect value"
+          helperText={invalidStatus ? "Please enter a valid status change" : ""}
           fullWidth
           value={editedContract?.status || ""}
           onChange={handleInputChange}

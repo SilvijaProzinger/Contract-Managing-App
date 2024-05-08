@@ -24,9 +24,15 @@ type Props = {
 
 const DrawerCustom = styled(Drawer)({
   width: "300px",
+  position: 'absolute',
+  height: '100%',
+  bottom: '0',
+  top: '0',
   "& .MuiDrawer-paper": {
+    position: 'absolute',
     width: "300px",
-    paddingTop: "100px",
+    paddingTop: "2rem",
+    height: '100%',
     zIndex: 4,
   },
 });

@@ -26,7 +26,6 @@ const StatusBadge = ({ status }: Props) => {
       sx={{
         color: getStatusColor(status),
         p: 1,
-        mt: 1,
         borderRadius: "4px",
         alignSelf: "flex-start",
       }}
