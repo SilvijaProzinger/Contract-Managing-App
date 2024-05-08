@@ -1,9 +1,10 @@
 import { Card, Typography, Box, Button } from "@mui/material";
+import { Link } from "react-router-dom";
 import { Contract } from "../types/types";
 import StatusBadge from "./StatusBadge";
 import { useState } from "react";
 import EditContract from "./EditContract";
-import { convertDate } from "../utils/dateConvert"; 
+import { convertDate } from "../utils/convertDate";
 
 type Props = {
   contract: Contract;
@@ -44,11 +45,18 @@ const ContractListItem = ({ contract }: Props) => {
         <Button variant="outlined" color="primary" onClick={openEditModal}>
           Edit
         </Button>
-        <Button variant="contained" color="primary" sx={{ ml: 1 }}>
-          View
-        </Button>
+        <Link to={`/contract/${contract.id}`}>
+          {" "}
+          <Button variant="contained" color="primary" sx={{ ml: 1 }}>
+            View
+          </Button>
+        </Link>
       </Box>
-      <EditContract contractId={contract.id} isEditModalOpen={isEditModalOpen} onClose={closeEditModal} />
+      <EditContract
+        contractId={contract.id}
+        isEditModalOpen={isEditModalOpen}
+        onClose={closeEditModal}
+      />
     </Card>
   );
 };

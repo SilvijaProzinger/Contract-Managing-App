@@ -1,7 +1,7 @@
 import { create } from "zustand";
 import { Contract, ContractsState } from "../types/types";
 
-const useContractsStore = create<ContractsState>((set) => ({
+const useContractsStore = create<ContractsState>((set, get) => ({
   contracts: [],
   setContracts: (newContracts: Contract[]) => set({ contracts: newContracts }),
   addContract: (newContract: Contract) =>
@@ -15,8 +15,8 @@ const useContractsStore = create<ContractsState>((set) => ({
       ),
     })),
   getContractById: (id: number) => {
-    const { contracts } = useContractsStore.getState();
-    return contracts.find((contract: Contract) => contract.id === id);
+    const contractsState = get().contracts;
+    return contractsState.find((contract: Contract) => contract.id === id);
   },
 }));
 

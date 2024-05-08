@@ -1,9 +1,10 @@
 import { create } from "zustand";
-import { ItemState,Item } from "../types/types";
+import { ItemState, Items } from "../types/types";
 
 const useItemsStore = create<ItemState>((set) => ({
   items: [],
-  setItems: (newItem: Item[]) => set({ items: newItem }),
+  setItems: (newItem: Items[]) => set({ items: newItem }),
 }));
 
 export { useItemsStore };
+ 

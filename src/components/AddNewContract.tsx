@@ -17,10 +17,12 @@ type Props = {
 };
 
 const AddNewContract = ({ isNewModalOpen, onClose }: Props) => {
-  const { addContract } = useContractsStore();
+  const { addContract, contracts } = useContractsStore();
+
+  let lastContractId = contracts[contracts.length - 1].id
 
   const [newContractData, setNewContractData] = useState<Contract>({
-    id: 0,
+    id: ++lastContractId,
     kupac: "",
     broj_ugovora: "",
     datum_akontacije: "",
@@ -37,6 +39,7 @@ const AddNewContract = ({ isNewModalOpen, onClose }: Props) => {
   };
 
   const handleSubmit = () => {
+    console.log(newContractData)
     addContract(newContractData);
     onClose();
   };

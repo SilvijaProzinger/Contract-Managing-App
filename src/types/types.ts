@@ -13,7 +13,7 @@ export type ContractsState = {
   setContracts: (newContracts: Contract[]) => void;
   addContract: (newContract: Contract) => void;
   updateContract: (updatedContract: Contract) => void;
-  getContractById: (id: number) => Contract | undefined;
+  getContractById?: (id: number) => Contract | undefined;
 };
 
 export type Item = {
@@ -24,11 +24,11 @@ export type Item = {
 };
 
 export type Items = {
-  contract_number: string;
-  items: Item[];
+  broj_ugovora: string;
+  artikli: Item[];
 };
 
 export type ItemState = {
-  items: Item[];
-  setItems: (newItems: Item[]) => void;
+  items: Items[];
+  setItems: (newItems: Items[]) => void;
 };
