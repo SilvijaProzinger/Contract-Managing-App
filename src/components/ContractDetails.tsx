@@ -13,18 +13,18 @@ import Header from "./Header";
 import { convertDate } from "../utils/convertDate";
 import { Contract, Item, Items } from "../types/types";
 import { useItemsStore } from "../store/itemsStore";
-import { useContractsStore } from "../store/contractsStore";
 import { fetchItems } from "../utils/fetchFromItemsApi";
 import useFetch from "../hooks/useFetch";
 import ContractItems from "./ContractItems";
-import { fetchContracts } from "../utils/fetchFromContractsApi";
 
-const ContractDetails = () => {
+type Props = {
+  contracts: Contract[] | null;
+};
+
+const ContractDetails = ({ contracts }: Props) => {
   const { id } = useParams();
-  const { contracts, setContracts } = useContractsStore.getState();
   const { setItems } = useItemsStore();
   const { data: items, loading, error } = useFetch(fetchItems); // fetch items
-  const { data } = useFetch(fetchContracts); // fetch items
 
   const [contractDetails, setContractDetails] = useState<Contract | undefined>(
     undefined
@@ -33,19 +33,19 @@ const ContractDetails = () => {
 
   const getContractById = useCallback(
     (id: number) => {
-      return contracts?.find((contract: Contract) => contract.id === id);
+      if (contracts) return contracts.find((contract) => contract.id === id);
+      else return undefined
     },
     [contracts]
   );
 
   // if url param id exists, get contract with that same id from state
   useEffect(() => {
-    if (id) {
-      setContracts(data as Contract[]);
+    if (contracts && id) {
       const contractById = getContractById(parseInt(id));
       setContractDetails(contractById);
     }
-  }, [getContractById, setContracts, data, id]);
+  }, [getContractById, items, contracts, id]);
 
   // call set method from store and update items state array
   useEffect(() => {

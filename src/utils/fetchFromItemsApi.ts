@@ -3,7 +3,7 @@ import items from "../api/items.json";
 
 // helper function to fetch from the mock items api
 export const fetchItems = () => {
-  return new Promise<Items[]>((resolve, reject) => {
+  return new Promise<any[]>((resolve, reject) => {
     setTimeout(() => {
       resolve(items);
       reject(new Error("Failed to fetch items data"));

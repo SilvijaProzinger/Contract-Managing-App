@@ -59,7 +59,7 @@ function App() {
               path="/"
               element={<Dashboard loading={loading} error={error} />}
             />
-            <Route path="/contract/:id" element={<ContractDetails />} />
+            <Route path="/contract/:id" element={<ContractDetails contracts={contracts}/>} />
           </Routes>
         </BrowserRouter>
       </ThemeProvider>
