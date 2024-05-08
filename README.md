@@ -1,46 +1,42 @@
-# Getting Started with Create React App
+# Contract managing app
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This is a contract managing app made in React and Typescript, styled with Material-UI and state managed by Zustand. This app allows the user to view a list of contracts, edit them, filter them, add a new contract and view details about selected contract along with related items. The data is fetched from a dummy API.
 
-## Available Scripts
+## Features
 
-In the project directory, you can run:
+* List contracts fetched from a dummy API
+* Filter them by `Kupac` (buyer) and `Status`
+* Add a new contract
+* Edit an existing contract
+* View contract details
+* View items related to a contract 
 
-### `npm start`
+## How to run
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+* Clone the repository or download the ZIP file.
+* Inside the downloaded folder open a Node.js command prompt.
+* Run `npm install` to install all the dependencies required for running this project.
+* Run `npm start` to launch the web app locally in your browser at [http://localhost:3000](http://localhost:3000).
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## What I used
 
-### `npm test`
+* `create-react-app`
+* `zustand` 
+* `material-ui`
+* `typescript`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## TO-DO - what should be implemented to make the app production-ready 
 
-### `npm run build`
+The following features are what I consider should be implemented to make the app easier to use, scale better and be production ready. 
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+* Replace the dummy API with a real API and implement better fetching and error handling (maybe with the use of libraries such as react-query if we want to cache the data)
+* Implement authorization
+* Implement caching (for example once the details about one contract have been fetched from the store, cache the data for a short while if the user accidentaly navigates away from the page)
+* 
+* Add pagination and display only few contracts on each page 
+* Replace every date input field in edit and add forms with date picker for convinience 
+* Add a language support for both English and Croatian
+* Refactor the code and break the components down even further
+* Create a folder for each customized UI component so that they can be reused in multiple components as the app grows
+* Add images for items 
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).

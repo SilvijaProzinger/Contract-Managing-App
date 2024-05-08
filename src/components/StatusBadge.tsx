@@ -1,7 +1,7 @@
 import { Badge, Icon } from "@mui/material";
 import EditNoteIcon from "@mui/icons-material/EditNote";
-import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
-import LocalShippingIcon from "@mui/icons-material/LocalShipping";
+import LocalPostOfficeIcon from '@mui/icons-material/LocalPostOffice';
+import PostAddIcon from '@mui/icons-material/PostAdd';
 
 type Props = {
   status: string;
@@ -16,8 +16,8 @@ const StatusBadge = ({ status }: Props) => {
 
   const getStatusIcon = (status: string) => {
     if (status === "KREIRANO") return <EditNoteIcon />;
-    else if (status === "NARUČENO") return <ShoppingCartIcon />;
-    else if (status === "ISPORUČENO") return <LocalShippingIcon />;
+    else if (status === "NARUČENO") return <PostAddIcon />;
+    else if (status === "ISPORUČENO") return <LocalPostOfficeIcon />;
     else return null;
   };
 
