@@ -1,4 +1,3 @@
-import { Contract } from "../types/types";
 import contracts from "../api/contracts.json";
 
 // helper function to fetch from the mock contracts api

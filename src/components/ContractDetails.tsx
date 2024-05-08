@@ -16,13 +16,11 @@ import { useItemsStore } from "../store/itemsStore";
 import { fetchItems } from "../utils/fetchFromItemsApi";
 import useFetch from "../hooks/useFetch";
 import ContractItems from "./ContractItems";
+import { useContractsStore } from "../store/contractsStore";
 
-type Props = {
-  contracts: Contract[] | null;
-};
-
-const ContractDetails = ({ contracts }: Props) => {
+const ContractDetails = () => {
   const { id } = useParams();
+  const { contracts } = useContractsStore();
   const { setItems } = useItemsStore();
   const { data: items, loading, error } = useFetch(fetchItems); // fetch items
 
@@ -34,18 +32,18 @@ const ContractDetails = ({ contracts }: Props) => {
   const getContractById = useCallback(
     (id: number) => {
       if (contracts) return contracts.find((contract) => contract.id === id);
-      else return undefined
+      else return undefined;
     },
     [contracts]
   );
 
   // if url param id exists, get contract with that same id from state
   useEffect(() => {
-    if (contracts && id) {
+    if (id) {
       const contractById = getContractById(parseInt(id));
       setContractDetails(contractById);
     }
-  }, [getContractById, items, contracts, id]);
+  }, [getContractById, items, id]);
 
   // call set method from store and update items state array
   useEffect(() => {
@@ -55,7 +53,7 @@ const ContractDetails = ({ contracts }: Props) => {
   }, [setItems, contractDetails, items]);
 
   useEffect(() => {
-    if (contractDetails) {
+    if (items) {
       const matchedItems =
         (items as Items[]).find(
           (item: Items) =>
@@ -68,12 +66,6 @@ const ContractDetails = ({ contracts }: Props) => {
   return (
     <Container maxWidth={false} disableGutters>
       <Header title={"Contract Details"} />
-      {loading && <CircularProgress sx={{ margin: "1rem" }} />}
-      {error && (
-        <Typography variant="h3">
-          No data found. Please try a different contract.
-        </Typography>
-      )}
       {contractDetails && (
         <Card sx={{ maxWidth: "800px", marginLeft: "1rem", marginTop: "1rem" }}>
           <CardContent>
@@ -126,15 +118,22 @@ const ContractDetails = ({ contracts }: Props) => {
               Items:
             </Typography>
             <Grid container spacing={2} mt={1}>
-              {relatedItems.map((item) => (
-                <Grid item xs={12} sm={6} md={6} lg={6} key={item.id}>
-                  <ContractItems
-                    naziv={item.naziv}
-                    dobavljac={item.dobavljac}
-                    status={item.status}
-                  />
-                </Grid>
-              ))}
+              {loading && <CircularProgress sx={{ margin: "1rem" }} />}
+              {error ? (
+                <Typography variant="h3">
+                  No data found. Please try a different contract.
+                </Typography>
+              ) : (
+                relatedItems.map((item) => (
+                  <Grid item xs={12} sm={6} md={6} lg={6} key={item.id}>
+                    <ContractItems
+                      naziv={item.naziv}
+                      dobavljac={item.dobavljac}
+                      status={item.status}
+                    />
+                  </Grid>
+                ))
+              )}
             </Grid>
           </CardContent>
         </Card>

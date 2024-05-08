@@ -45,10 +45,6 @@ function App() {
     }
   }, [setContracts, contracts]);
 
-  useEffect(() => {
-    console.log(contracts);
-  }, [contracts]);
-
   return (
     <>
       <ThemeProvider theme={theme}>
@@ -59,7 +55,7 @@ function App() {
               path="/"
               element={<Dashboard loading={loading} error={error} />}
             />
-            <Route path="/contract/:id" element={<ContractDetails contracts={contracts}/>} />
+            <Route path="/contract/:id" element={<ContractDetails />} />
           </Routes>
         </BrowserRouter>
       </ThemeProvider>

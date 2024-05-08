@@ -57,10 +57,6 @@ const EditContract = ({ contractId, isEditModalOpen, onClose }: Props) => {
     );
   };
 
-  useEffect(() => {
-    console.log(invalidStatus);
-  }, [invalidStatus]);
-
   const handleSubmit = () => {
     if (editedContract && !invalidStatus) {
       updateContract(editedContract);

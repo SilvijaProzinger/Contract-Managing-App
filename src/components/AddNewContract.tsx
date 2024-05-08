@@ -20,7 +20,7 @@ const AddNewContract = ({ isNewModalOpen, onClose }: Props) => {
   const { addContract } = useContractsStore();
 
   const [newContractData, setNewContractData] = useState<Contract>({
-    id: Math.floor(Math.random() * 10),
+    id: Math.floor(Math.random() * 100),
     kupac: "",
     broj_ugovora: "",
     datum_akontacije: "",

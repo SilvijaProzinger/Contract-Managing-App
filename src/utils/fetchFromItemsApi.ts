@@ -1,4 +1,3 @@
-import { Items } from "../types/types";
 import items from "../api/items.json";
 
 // helper function to fetch from the mock items api

@@ -32,7 +32,6 @@ The following features are what I consider should be implemented to make the app
 * Replace the dummy API with a real API and implement better fetching and error handling (maybe with the use of libraries such as react-query if we want to cache the data)
 * Implement authorization
 * Implement caching (for example once the details about one contract have been fetched from the store, cache the data for a short while if the user accidentaly navigates away from the page)
-* 
 * Add pagination and display only few contracts on each page 
 * Replace every date input field in edit and add forms with date picker for convinience 
 * Add a language support for both English and Croatian

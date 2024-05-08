@@ -1,10 +1,9 @@
 import { useEffect, useState } from "react";
-import { Contract, Items } from "../types/types";
 
 type FetchFunction = () => Promise<any[]>;
 
 const useFetch = (apiToFetch: FetchFunction) => {
-  const [data, setData] = useState<any[] | null>(null);
+  const [data, setData] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<Error | null>(null);
 
