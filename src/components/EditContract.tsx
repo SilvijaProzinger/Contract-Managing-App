@@ -18,8 +18,10 @@ type Props = {
   onClose: () => void;
 };
 
+const contractsUrl = process.env.REACT_APP_CONTRACTS_URL ?? "";
+
 const EditContract = ({ contractId, isEditModalOpen, onClose }: Props) => {
-  const { getContractById, updateContract, contracts } = useContractsStore();
+  const { getContractById, updateContract } = useContractsStore();
   const contract = (getContractById as (id: number) => Contract)(contractId); // select the right contract object from the state by its id
 
   const [editedContract, setEditedContract] = useState<Contract>(contract);
@@ -57,9 +59,21 @@ const EditContract = ({ contractId, isEditModalOpen, onClose }: Props) => {
     );
   };
 
+  const handleUpdateContract = async (updatedContract: Contract) => {
+    try {
+      await fetch(`${contractsUrl}/${updatedContract.id}`, {
+        method: "PUT",
+        body: JSON.stringify(updatedContract),
+      });
+      updateContract(updatedContract);
+    } catch (error) {
+      console.error("Failed to update contract:", error);
+    }
+  };
+
   const handleSubmit = () => {
     if (editedContract && !invalidStatus) {
-      updateContract(editedContract);
+      handleUpdateContract(editedContract);
       onClose();
     }
   };
@@ -67,8 +81,8 @@ const EditContract = ({ contractId, isEditModalOpen, onClose }: Props) => {
   return (
     <Dialog open={isEditModalOpen} onClose={onClose}>
       <DialogTitle>Edit contract</DialogTitle>
-      <DialogContentText pl={3}>
-        This is where you can edit delivery date or status.
+      <DialogContentText px={3}>
+        This is where you can edit the date of delivery or contract status.
       </DialogContentText>
       <DialogContent>
         {contract?.status !== "ISPORUČENO" && (
@@ -76,7 +90,7 @@ const EditContract = ({ contractId, isEditModalOpen, onClose }: Props) => {
             margin="dense"
             id="rok_isporuke"
             name="rok_isporuke"
-            label="Rok isporuke"
+            label="Date of delivery"
             fullWidth
             value={editedContract?.rok_isporuke || ""}
             onChange={handleInputChange}
@@ -103,9 +117,9 @@ const EditContract = ({ contractId, isEditModalOpen, onClose }: Props) => {
           onChange={handleInputChange}
         />
       </DialogContent>
-      <DialogActions>
-        <Button onClick={onClose}>Cancel</Button>
-        <Button onClick={handleSubmit} color="primary">
+      <DialogActions sx={{ margin: '0 1rem 1rem 0'}}>
+        <Button onClick={onClose} variant='outlined'>Cancel</Button>
+        <Button onClick={handleSubmit} variant="contained">
           Save
         </Button>
       </DialogActions>

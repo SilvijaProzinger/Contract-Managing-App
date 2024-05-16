@@ -1,18 +1,19 @@
 import { useEffect, useState } from "react";
+import { Contract, Items } from "../types/types";
 
-type FetchFunction = () => Promise<any[]>;
-
-const useFetch = (apiToFetch: FetchFunction) => {
-  const [data, setData] = useState<any[]>([]);
+const useFetch = (url: string) => {
+  const [data, setData] = useState<Contract[] | Items[] | null>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<Error | null>(null);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const result = await apiToFetch();
+        const res = await fetch(url)
+        const result = await res.json()
         setData(result);
       } catch (error: any) {
+        console.log(error)
         setError(error);
       } finally {
         setLoading(false);
@@ -20,7 +21,7 @@ const useFetch = (apiToFetch: FetchFunction) => {
     };
 
     fetchData();
-  }, [apiToFetch]);
+  }, [url]);
 
   return { data, loading, error };
 };

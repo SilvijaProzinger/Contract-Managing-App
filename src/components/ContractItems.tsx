@@ -1,30 +1,32 @@
-import { Box, Typography, Paper } from "@mui/material";
-import { styled } from "@mui/material/styles";
+import { Typography, Card, CardContent, CardMedia } from "@mui/material";
 import StatusBadge from "./StatusBadge";
 
 type Props = {
   naziv: string;
   dobavljac: string;
   status: string;
+  img: string | undefined;
 };
 
-const BoxCustom = styled(Paper)((Box) => ({
-  display: "flex",
-  justifyContent: "space-between",
-  padding: '1rem'
-}));
-
-const ContractItems = ({ naziv, dobavljac, status }: Props) => {
+const ContractItems = ({ naziv, dobavljac, status, img }: Props) => {
   return (
-    <BoxCustom variant="outlined">
-      <Box>
+    <Card
+      variant="outlined"
+      sx={{
+        display: "flex",
+        justifyContent: "space-between",
+        alignItems: "center",
+      }}
+    >
+      <CardContent>
         <Typography pb={1} fontWeight={600}>
           {naziv}
         </Typography>
-        <Typography>Dobavljač: {dobavljac}</Typography>
-      </Box>
-      <StatusBadge status={status} />
-    </BoxCustom>
+        <Typography pb={1}>Provider: {dobavljac}</Typography>
+        <StatusBadge status={status} />
+      </CardContent>
+      <CardMedia component="img" sx={{ width: 100, paddingRight: 1 }} image={img} alt={naziv} />
+    </Card>
   );
 };
 

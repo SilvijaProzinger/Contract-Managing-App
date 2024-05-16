@@ -6,6 +6,7 @@ import {
   Collapse,
   Box,
   Typography,
+  Skeleton,
 } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import ExpandLess from "@mui/icons-material/ExpandLess";
@@ -24,15 +25,15 @@ type Props = {
 
 const DrawerCustom = styled(Drawer)({
   width: "300px",
-  position: 'absolute',
-  height: '100%',
-  bottom: '0',
-  top: '0',
+  position: "absolute",
+  height: "100%",
+  bottom: "0",
+  top: "0",
   "& .MuiDrawer-paper": {
-    position: 'absolute',
+    position: "absolute",
     width: "300px",
     paddingTop: "2rem",
-    height: '100%',
+    height: "100%",
     zIndex: 4,
   },
 });
@@ -88,23 +89,43 @@ const FilterList = ({
 
   return (
     <DrawerCustom
+      elevation={3}
       open={open}
       onClose={toggleDrawer}
       variant={isDesktop ? "permanent" : "temporary"}
       anchor={"left"}
     >
-      <Typography variant="h6" pl={2} pb={2}>
+      {isDesktop && (
+        <Box
+          mb={3}
+          mx="auto"
+          sx={{
+            width: 220,
+            height: 200,
+          }}
+        >
+          <img
+            src="/undraw_agreement_re_d4dv.svg"
+            alt=""
+            width={220}
+            height={200}
+          />
+        </Box>
+      )}
+      <Typography variant="h6" pl={2} pb={3}>
         Filter contracts
       </Typography>
-      <Box>
+      <Box mb={2}>
         <ListItemButton onClick={handleToggleFilterGroup}>
-          <ListItemText primary="Kupac" />
+          <ListItemText primary="Buyer" />
           {showCheckboxes ? <ExpandLess /> : <ExpandMore />}
         </ListItemButton>
         <Collapse in={showCheckboxes} timeout="auto" unmountOnExit>
           <List component="div" disablePadding>
             {buyerFiltersToDisplay.map((buyer: string, index: number) => {
-              return (
+              return !buyer ? (
+                <Skeleton variant="rectangular" width="100%" height={50} />
+              ) : (
                 <FilterListItem
                   key={index}
                   handleToggleCheckbox={handleToggleCheckbox}

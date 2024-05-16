@@ -26,7 +26,7 @@
     "broj_ugovora": "2/2024",
     "artikli": [
       {
-        "id": 2,
+        "id": 4,
         "naziv": "Stolno Računalo MSGW 566X",
         "dobavljac": "Sancta Domenica",
         "status": "NARUČENO"
@@ -37,13 +37,13 @@
     "broj_ugovora": "3/2024",
     "artikli": [
       {
-        "id": 2,
+        "id": 5,
         "naziv": "Perilica posuđa ugradbena Electrolux EEA27200L",
         "dobavljac": "E-kupi",
         "status": "ISPORUČENO"
       },
       {
-        "id": 2,
+        "id": 6,
         "naziv": "Sušilica za rublje Gorenje 607",
         "dobavljac": "Bijela tehnika",
         "status": "KREIRANO"
@@ -54,14 +54,48 @@
     "broj_ugovora": "4/2024",
     "artikli": [
       {
-        "id": 2,
+        "id": 7,
         "naziv": "Glačalo Končar EPIC600",
         "dobavljac": "E-kupi",
         "status": "KREIRANO"
       },
       {
-        "id": 2,
+        "id": 8,
         "naziv": "Ploča ugradbena kombinirana Gorenje GCE691BSC",
+        "dobavljac": "Sancta Domenica",
+        "status": "NARUČENO"
+      }
+    ]
+  },
+  {
+    "broj_ugovora": "5/2024",
+    "artikli": [
+      {
+        "id": 9,
+        "naziv": "Sušilica za rublje Gorenje 607",
+        "dobavljac": "Bijela tehnika",
+        "status": "KREIRANO"
+      },
+      {
+        "id": 10,
+        "naziv": "Ploča ugradbena kombinirana Gorenje GCE691BSC",
+        "dobavljac": "Sancta Domenica",
+        "status": "KREIRANO"
+      }
+    ]
+  },
+  {
+    "broj_ugovora": "6/2024",
+    "artikli": [
+      {
+        "id": 10,
+        "naziv": "Glačalo Končar EPIC600",
+        "dobavljac": "E-kupi",
+        "status": "ISPORUČENO"
+      },
+      {
+        "id": 11,
+        "naziv": "Napa ugradbena Gorenje TH60E3X",
         "dobavljac": "Sancta Domenica",
         "status": "NARUČENO"
       }

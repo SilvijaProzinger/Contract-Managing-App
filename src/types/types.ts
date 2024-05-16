@@ -13,6 +13,7 @@ export type ContractsState = {
   setContracts: (newContracts: Contract[]) => void;
   addContract: (newContract: Contract) => void;
   updateContract: (updatedContract: Contract) => void;
+  deleteContract: (selectedContractId: number) => void;
   getContractById?: (id: number) => Contract | undefined;
 };
 
@@ -21,6 +22,7 @@ export type Item = {
   naziv: string;
   dobavljac: string;
   status: string;
+  img?: string;
 };
 
 export type Items = {

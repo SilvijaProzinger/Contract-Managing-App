@@ -1,0 +1,23 @@
+{
+  "contractsTitle": "Contracts",
+  "contractDetailsTitle": "Contract details",
+  "filterTitle": "Filter contracts",
+  "buyer": "Buyer",
+  "addNewButton": "Add new contract",
+  "contractNumber": "Contract number",
+  "deliveryDate": "Date of delivery",
+  "depositionDate": "Date of deposition",
+  "viewLink": "View contract details",
+  "editButton": "Edit",
+  "deleteButton": "Delete",
+  "editTitle": "Edit contract",
+  "editText": "This is where you can edit the date of delivery or contract status.",
+  "cancelButton": "Cancel",
+  "saveButton": "Save",
+  "deleteTitle": "Delete contract",
+  "deleteText": "Are you sure you want to delete contract number",
+  "addNewTitle": "Add new contract",
+  "backLink": "Back to contracts",
+  "items": "Items",
+  "provider": "Provider"
+}

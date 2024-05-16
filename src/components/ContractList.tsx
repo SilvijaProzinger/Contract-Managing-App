@@ -1,7 +1,5 @@
 import { useState, useEffect } from "react";
-import { Stack, Button, Container } from "@mui/material";
-import { useTheme } from "@mui/material/styles";
-import useMediaQuery from "@mui/material/useMediaQuery";
+import { Stack, Button, Container, Pagination } from "@mui/material";
 import { Contract } from "../types/types";
 import { useContractsStore } from "../store/contractsStore";
 import ContractListItem from "./ContractListItem";
@@ -17,9 +15,8 @@ const ContractList = ({ filters }: Props) => {
   const [filteredContractList, setFilteredContractList] = useState<Contract[]>(
     []
   );
-
-  const theme = useTheme();
-  const isDesktop = useMediaQuery(theme.breakpoints.up("md"));
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 4;
 
   // filter the contracts list based on selected filters
   useEffect(() => {
@@ -55,27 +52,41 @@ const ContractList = ({ filters }: Props) => {
     setIsNewModal(false);
   };
 
+  const handleChangePage = (
+    event: React.ChangeEvent<unknown>,
+    value: number
+  ) => {
+    setCurrentPage(value);
+  };
+
+  const paginatedContracts = filteredContractList.slice(
+    (currentPage - 1) * itemsPerPage,
+    currentPage * itemsPerPage
+  );
+
   return (
-    <Container
-      maxWidth={false}
-      disableGutters
-      sx={{
-        marginLeft: isDesktop ? "100px" : 0,
-      }}
-    >
-      <Stack spacing={4}>
-        <Button
-          variant="outlined"
-          color="primary"
-          sx={{ width: "fit-content" }}
-          onClick={handleOpenNewModal}
-        >
-          Add new contract
-        </Button>
-        {filteredContractList.map((contract: Contract) => (
+    <Container maxWidth={false} disableGutters>
+      <Button
+        variant="outlined"
+        color="primary"
+        sx={{ width: "fit-content", marginBottom: "2rem" }}
+        onClick={handleOpenNewModal}
+      >
+        Add new contract
+      </Button>
+      <Stack spacing={4} minHeight={700}>
+        {paginatedContracts.map((contract: Contract) => (
           <ContractListItem key={contract.id} contract={contract} />
         ))}
       </Stack>
+      <Pagination
+        count={Math.ceil(filteredContractList.length / itemsPerPage)}
+        color="primary"
+        variant="outlined"
+        page={currentPage}
+        onChange={handleChangePage}
+        sx={{ marginTop: "3rem" }}
+      />
       <AddNewContract
         isNewModalOpen={isNewModalOpen}
         onClose={handleCloseNewModal}

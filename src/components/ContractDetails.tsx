@@ -1,28 +1,33 @@
 import { useState, useEffect, useCallback } from "react";
 import { useParams } from "react-router";
+import { Link as RouterLink } from "react-router-dom";
 import {
   Container,
   Typography,
   Card,
+  Box,
   CardContent,
   Divider,
   Grid,
   CircularProgress,
+  Link,
 } from "@mui/material";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import Header from "./Header";
 import { convertDate } from "../utils/convertDate";
 import { Contract, Item, Items } from "../types/types";
 import { useItemsStore } from "../store/itemsStore";
-import { fetchItems } from "../utils/fetchFromItemsApi";
 import useFetch from "../hooks/useFetch";
 import ContractItems from "./ContractItems";
 import { useContractsStore } from "../store/contractsStore";
+
+const itemsUrl = process.env.REACT_APP_ITEMS_URL ?? "";
 
 const ContractDetails = () => {
   const { id } = useParams();
   const { contracts } = useContractsStore();
   const { setItems } = useItemsStore();
-  const { data: items, loading, error } = useFetch(fetchItems); // fetch items
+  const { data: items, loading, error } = useFetch(itemsUrl); // fetch items
 
   const [contractDetails, setContractDetails] = useState<Contract | undefined>(
     undefined
@@ -31,8 +36,7 @@ const ContractDetails = () => {
 
   const getContractById = useCallback(
     (id: number) => {
-      if (contracts) return contracts.find((contract) => contract.id === id);
-      else return undefined;
+      return contracts?.find((contract) => contract.id === id);
     },
     [contracts]
   );
@@ -47,13 +51,13 @@ const ContractDetails = () => {
 
   // call set method from store and update items state array
   useEffect(() => {
-    if (contractDetails) {
+    if (contractDetails && items) {
       setItems(items as Items[]);
     }
   }, [setItems, contractDetails, items]);
 
   useEffect(() => {
-    if (items) {
+    if (items && contractDetails) {
       const matchedItems =
         (items as Items[]).find(
           (item: Items) =>
@@ -66,10 +70,28 @@ const ContractDetails = () => {
   return (
     <Container maxWidth={false} disableGutters>
       <Header title={"Contract Details"} />
+      <Box mx="auto" mt={3} maxWidth={800}>
+        <Link
+          component={RouterLink}
+          to={"/"}
+          color="primary"
+          underline="always"
+          fontWeight={600}
+          fontSize="1.25rem"
+          sx={{ display: "flex", alignItems: "center" }}
+        >
+          {" "}
+          <ArrowBackIcon />
+          Back to contracts
+        </Link>
+      </Box>
       {contractDetails && (
-        <Card sx={{ maxWidth: "800px", marginLeft: "1rem", marginTop: "1rem" }}>
+        <Card
+          raised
+          sx={{ maxWidth: "800px", padding: "1rem", margin: "2rem auto" }}
+        >
           <CardContent>
-            <Typography variant="h2" sx={{ marginBottom: "1rem" }}>
+            <Typography variant="h2" mb={3}>
               {(contractDetails as Contract).broj_ugovora}
             </Typography>
             <Typography
@@ -77,7 +99,7 @@ const ContractDetails = () => {
               paragraph
               sx={{ marginBottom: "0.5rem" }}
             >
-              Kupac:
+              Buyer:
             </Typography>
             <Typography>{(contractDetails as Contract).kupac}</Typography>
             <Divider sx={{ marginTop: "1rem", marginBottom: "1rem" }} />
@@ -86,7 +108,7 @@ const ContractDetails = () => {
               paragraph
               sx={{ marginBottom: "0.5rem" }}
             >
-              Datum akontacije:{" "}
+              Date of deposition:{" "}
             </Typography>
             <Typography>
               {convertDate((contractDetails as Contract).datum_akontacije)}
@@ -97,7 +119,7 @@ const ContractDetails = () => {
               paragraph
               sx={{ marginBottom: "0.5rem" }}
             >
-              Rok isporuke:
+              Date of delivery:
             </Typography>
             <Typography>
               {convertDate((contractDetails as Contract).rok_isporuke)}
@@ -130,6 +152,7 @@ const ContractDetails = () => {
                       naziv={item.naziv}
                       dobavljac={item.dobavljac}
                       status={item.status}
+                      img={item.img}
                     />
                   </Grid>
                 ))

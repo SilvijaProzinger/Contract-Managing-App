@@ -8,10 +8,16 @@ const useContractsStore = create<ContractsState>((set, get) => ({
     set((state: ContractsState) => ({
       contracts: [...state.contracts, newContract],
     })),
-  updateContract: (updatedContract: any) =>
+  updateContract: (updatedContract: Contract) =>
     set((state: ContractsState) => ({
       contracts: state.contracts.map((contract: Contract) =>
         contract.id === updatedContract.id ? updatedContract : contract
+      ),
+    })),
+  deleteContract: (selectedContractId: number) =>
+    set((state: ContractsState) => ({
+      contracts: state.contracts.filter(
+        (contract: Contract) => contract.id !== selectedContractId
       ),
     })),
   getContractById: (id: number) => {

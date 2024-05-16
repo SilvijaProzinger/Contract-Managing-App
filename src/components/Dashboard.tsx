@@ -28,11 +28,21 @@ const Dashboard = ({ loading, error }: Props) => {
   };
 
   return (
-    <Container maxWidth={false} disableGutters sx={{ position: "relative", height: '100vh' }}>
+    <Container
+      maxWidth={false}
+      disableGutters
+      sx={{ position: "relative", minHeight: "100vh" }}
+    >
       <Header
         title={"Contracts"}
         isDesktop={isDesktop}
         toggleDrawer={toggleDrawer}
+      />
+      <FilterList
+        isDesktop={isDesktop}
+        open={open}
+        toggleDrawer={toggleDrawer}
+        filterContracts={filterContracts}
       />
       {loading && <CircularProgress />}
       {error ? (
@@ -40,19 +50,12 @@ const Dashboard = ({ loading, error }: Props) => {
           An error has occured. Please refresh the page and try again.
         </Typography>
       ) : (
-        <>
-          {!loading || !error ? (
-            <FilterList
-              isDesktop={isDesktop}
-              open={open}
-              toggleDrawer={toggleDrawer}
-              filterContracts={filterContracts}
-            />
-          ) : null}
-          <Container maxWidth="md" sx={{ p: 4 }}>
-            <ContractList filters={filters} />
-          </Container>
-        </>
+        <Container
+          maxWidth="md"
+          sx={{ p: 4, marginLeft: isDesktop ? "22rem" : 0 }}
+        >
+          <ContractList filters={filters} />
+        </Container>
       )}
     </Container>
   );

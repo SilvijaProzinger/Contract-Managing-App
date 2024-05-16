@@ -1,0 +1,23 @@
+{
+  "contractsTitle": "Ugovori",
+  "contractDetailsTitle": "Detalji ugovora",
+  "filterTitle": "Filtriraj ugovore",
+  "buyer": "Kupac",
+  "addNewButton": "Dodaj novi ugovor",
+  "contractNumber": "Broj ugovora",
+  "deliveryDate": "Datum dostave",
+  "depositionDate": "Datum akontacije",
+  "viewLink": "Pregledaj detalje ugovora",
+  "editButton": "Uredi",
+  "deleteButton": "Izbriši",
+  "editTitle": "Uredi ugovor",
+  "editText": "Ovdje možete urediti datum dostave ili status ugovora.",
+  "cancelButton": "Otkaži",
+  "saveButton": "Spremi",
+  "deleteTitle": "Izbriši ugovor",
+  "deleteText": "Jeste li sigurni da želite izbrisatu ugovor pod brojem",
+  "addNewTitle": "Dodaj novi ugovor",
+  "backLink": "Natrag na ugovore",
+  "items": "Artikli",
+  "provider": "Dobavljač"
+}

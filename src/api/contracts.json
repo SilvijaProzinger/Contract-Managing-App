@@ -30,5 +30,21 @@
     "datum_akontacije": "2024-03-14",
     "rok_isporuke": "2024-08-13",
     "status": "KREIRANO"
+  },
+  {
+    "id": 5,
+    "kupac": "Helena Lazar",
+    "broj_ugovora": "5/2024",
+    "datum_akontacije": "2024-04-24",
+    "rok_isporuke": "2024-04-30",
+    "status": "KREIRANO"
+  },
+  {
+    "id": 6,
+    "kupac": "Nino Hrast",
+    "broj_ugovora": "6/2024",
+    "datum_akontacije": "2024-05-02",
+    "rok_isporuke": "2024-05-05",
+    "status": "ISPORUČENO"
   }
 ]

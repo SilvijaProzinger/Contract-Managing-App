@@ -4,7 +4,6 @@ import useFetch from "./hooks/useFetch";
 import Dashboard from "./components/Dashboard";
 import ContractDetails from "./components/ContractDetails";
 import { useContractsStore } from "./store/contractsStore";
-import { fetchContracts } from "./utils/fetchFromContractsApi";
 import { Contract } from "./types/types";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { CssBaseline } from "@mui/material/";
@@ -17,7 +16,10 @@ const theme = createTheme({
       default: "#f5f4f1",
     },
     primary: {
-      main: "#00668c",
+      main: "#1476d2",
+    },
+    secondary: {
+      main: "#ba000d",
     },
     text: {
       primary: "#1d1c1c",
@@ -28,22 +30,28 @@ const theme = createTheme({
       fontFamily: "Lato",
     },
     h1: {
-      fontSize: "3rem",
-      color: "#313d44",
+      fontSize: "2.5rem",
+      color: "#14497b",
+    },
+    h2: {
+      fontSize: "2rem",
+      color: "#14497b",
     },
   },
 });
 
+const contractsUrl = process.env.REACT_APP_CONTRACTS_URL ?? "";
+
 function App() {
   const { setContracts } = useContractsStore();
-  const { data: contracts, loading, error } = useFetch(fetchContracts); // call custom fetching hook and pass the mock api call we want
+  const { data: contractsData, loading, error } = useFetch(contractsUrl);
 
   useEffect(() => {
     // if the data was successfully fetched update the contracts store
-    if (contracts) {
-      setContracts(contracts as Contract[]);
+    if (contractsData) {
+      setContracts(contractsData as Contract[]);
     }
-  }, [setContracts, contracts]);
+  }, [setContracts, contractsData]);
 
   return (
     <>
