@@ -14,6 +14,7 @@
   "editText": "Ovdje možete urediti datum dostave ili status ugovora.",
   "cancelButton": "Otkaži",
   "saveButton": "Spremi",
+  "resetButton": "Očisti",
   "closeButton": "Zatvori",
   "deleteTitle": "Izbriši ugovor",
   "deleteText": "Jeste li sigurni da želite izbrisatu ugovor pod brojem",

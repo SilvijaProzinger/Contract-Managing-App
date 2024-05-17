@@ -14,6 +14,7 @@
   "editText": "This is where you can edit the date of delivery or contract status.",
   "cancelButton": "Cancel",
   "saveButton": "Save",
+  "resetButton": "Reset",
   "closeButton": "Close",
   "deleteTitle": "Delete contract",
   "deleteText": "Are you sure you want to delete contract number",

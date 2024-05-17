@@ -63,7 +63,7 @@ const AddNewContract = ({ isNewModalOpen, onClose }: Props) => {
 
   const handleSubmit = () => {
     addContract(newContractData);
-    handleAddNewContract(newContractData);
+    //handleAddNewContract(newContractData);
     onClose();
   };
 

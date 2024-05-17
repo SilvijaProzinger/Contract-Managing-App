@@ -7,6 +7,7 @@ import {
   Box,
   Typography,
   Skeleton,
+  Button,
 } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import ExpandLess from "@mui/icons-material/ExpandLess";
@@ -86,6 +87,10 @@ const FilterList = ({
     setShowCheckboxes(!showCheckboxes);
   };
 
+  const handleFilterReset = () => {
+    setCheckedFilter([])
+  }
+
   useEffect(() => {
     filterContracts(checkedFilter);
   }, [filterContracts, checkedFilter]);
@@ -116,11 +121,11 @@ const FilterList = ({
         </Box>
       )}
       <Typography variant="h6" pl={2} pb={3}>
-        {t('filterTitle')}
+        {t("filterTitle")}
       </Typography>
       <Box mb={2}>
         <ListItemButton onClick={handleToggleFilterGroup}>
-          <ListItemText primary={t('buyer')} />
+          <ListItemText primary={t("buyer")} />
           {showCheckboxes ? <ExpandLess /> : <ExpandMore />}
         </ListItemButton>
         <Collapse in={showCheckboxes} timeout="auto" unmountOnExit>
@@ -141,7 +146,7 @@ const FilterList = ({
           </List>
         </Collapse>
       </Box>
-      <Box>
+      <Box mb={2}>
         <ListItemButton onClick={handleToggleFilterGroup}>
           <ListItemText primary="Status" />
           {showCheckboxes ? <ExpandLess /> : <ExpandMore />}
@@ -162,6 +167,9 @@ const FilterList = ({
           </List>
         </Collapse>
       </Box>
+      <Button onClick={handleFilterReset} color="error" variant="outlined" sx={{ width: "fit-content", margin: '0 1rem' }}>
+        {t('resetButton')}
+      </Button>
     </DrawerCustom>
   );
 };
