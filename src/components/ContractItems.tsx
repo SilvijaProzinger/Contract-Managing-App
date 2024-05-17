@@ -1,4 +1,5 @@
 import { Typography, Card, CardContent, CardMedia } from "@mui/material";
+import { useTranslation } from "react-i18next";
 import StatusBadge from "./StatusBadge";
 
 type Props = {
@@ -9,6 +10,8 @@ type Props = {
 };
 
 const ContractItems = ({ naziv, dobavljac, status, img }: Props) => {
+  const { t } = useTranslation();
+
   return (
     <Card
       variant="outlined"
@@ -22,7 +25,7 @@ const ContractItems = ({ naziv, dobavljac, status, img }: Props) => {
         <Typography pb={1} fontWeight={600}>
           {naziv}
         </Typography>
-        <Typography pb={1}>Provider: {dobavljac}</Typography>
+        <Typography pb={1}>{t('provider')}: {dobavljac}</Typography>
         <StatusBadge status={status} />
       </CardContent>
       <CardMedia component="img" sx={{ width: 100, paddingRight: 1 }} image={img} alt={naziv} />

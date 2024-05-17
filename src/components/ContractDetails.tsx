@@ -13,6 +13,7 @@ import {
   Link,
 } from "@mui/material";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import { useTranslation } from "react-i18next";
 import Header from "./Header";
 import { convertDate } from "../utils/convertDate";
 import { Contract, Item, Items } from "../types/types";
@@ -33,6 +34,8 @@ const ContractDetails = () => {
     undefined
   );
   const [relatedItems, setRelatedItems] = useState<Item[]>([]);
+
+  const { t } = useTranslation();
 
   const getContractById = useCallback(
     (id: number) => {
@@ -69,7 +72,7 @@ const ContractDetails = () => {
 
   return (
     <Container maxWidth={false} disableGutters>
-      <Header title={"Contract Details"} />
+      <Header title={t('contractDetailsTitle')} />
       <Box mx="auto" mt={3} maxWidth={800}>
         <Link
           component={RouterLink}
@@ -82,7 +85,7 @@ const ContractDetails = () => {
         >
           {" "}
           <ArrowBackIcon />
-          Back to contracts
+          {t('backLink')}
         </Link>
       </Box>
       {contractDetails && (
@@ -99,7 +102,7 @@ const ContractDetails = () => {
               paragraph
               sx={{ marginBottom: "0.5rem" }}
             >
-              Buyer:
+              {t('buyer')}:
             </Typography>
             <Typography>{(contractDetails as Contract).kupac}</Typography>
             <Divider sx={{ marginTop: "1rem", marginBottom: "1rem" }} />
@@ -108,7 +111,7 @@ const ContractDetails = () => {
               paragraph
               sx={{ marginBottom: "0.5rem" }}
             >
-              Date of deposition:{" "}
+             {t('depositionDate')}:{" "}
             </Typography>
             <Typography>
               {convertDate((contractDetails as Contract).datum_akontacije)}
@@ -119,7 +122,7 @@ const ContractDetails = () => {
               paragraph
               sx={{ marginBottom: "0.5rem" }}
             >
-              Date of delivery:
+              {t('deliveryDate')}:
             </Typography>
             <Typography>
               {convertDate((contractDetails as Contract).rok_isporuke)}
@@ -137,13 +140,13 @@ const ContractDetails = () => {
             </Typography>
             <Divider sx={{ marginTop: "1rem", marginBottom: "1rem" }} />
             <Typography variant="h6" sx={{ marginTop: "1rem" }}>
-              Items:
+              {t('items')}:
             </Typography>
             <Grid container spacing={2} mt={1}>
               {loading && <CircularProgress sx={{ margin: "1rem" }} />}
               {error ? (
                 <Typography variant="h3">
-                  No data found. Please try a different contract.
+                  {t('detailsError')}
                 </Typography>
               ) : (
                 relatedItems.map((item) => (

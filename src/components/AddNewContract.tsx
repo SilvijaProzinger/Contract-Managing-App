@@ -75,7 +75,7 @@ const AddNewContract = ({ isNewModalOpen, onClose }: Props) => {
           margin="dense"
           id="kupac"
           name="kupac"
-          label="Buyer"
+          label={t('buyer')}
           fullWidth
           value={newContractData.kupac}
           onChange={handleInputChange}
@@ -85,7 +85,7 @@ const AddNewContract = ({ isNewModalOpen, onClose }: Props) => {
           margin="dense"
           id="broj_ugovora"
           name="broj_ugovora"
-          label="Contract number"
+          label={t('contractNumber')}
           fullWidth
           value={newContractData.broj_ugovora}
           onChange={handleInputChange}
@@ -95,7 +95,7 @@ const AddNewContract = ({ isNewModalOpen, onClose }: Props) => {
           margin="dense"
           id="rok_isporuke"
           name="rok_isporuke"
-          label="Date of delivery"
+          label={t('deliveryDate')}
           fullWidth
           value={newContractData.rok_isporuke}
           onChange={handleInputChange}
@@ -114,7 +114,7 @@ const AddNewContract = ({ isNewModalOpen, onClose }: Props) => {
           margin="dense"
           id="datum_akontacije"
           name="datum_akontacije"
-          label="Date of deposition"
+          label={t('depositionDate')}
           fullWidth
           value={newContractData.datum_akontacije}
           onChange={handleInputChange}
@@ -132,10 +132,10 @@ const AddNewContract = ({ isNewModalOpen, onClose }: Props) => {
       </DialogContent>
       <DialogActions sx={{ margin: "0 1rem 1rem 0" }}>
         <Button onClick={onClose} variant="outlined">
-          Cancel
+          {t('cancelButton')}
         </Button>
         <Button onClick={handleSubmit} variant="contained">
-          Save
+          {t('saveButton')}
         </Button>
       </DialogActions>
     </Dialog>

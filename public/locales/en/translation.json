@@ -14,10 +14,13 @@
   "editText": "This is where you can edit the date of delivery or contract status.",
   "cancelButton": "Cancel",
   "saveButton": "Save",
+  "closeButton": "Close",
   "deleteTitle": "Delete contract",
   "deleteText": "Are you sure you want to delete contract number",
   "addNewTitle": "Add new contract",
   "backLink": "Back to contracts",
   "items": "Items",
-  "provider": "Provider"
+  "provider": "Provider",
+  "detailsError": "No data found. Please try a different contract.",
+  "errorHome": "An error has occured. Please refresh the page and try again."
 }

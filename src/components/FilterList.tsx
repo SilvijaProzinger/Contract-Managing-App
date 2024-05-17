@@ -11,6 +11,7 @@ import {
 import { styled } from "@mui/material/styles";
 import ExpandLess from "@mui/icons-material/ExpandLess";
 import ExpandMore from "@mui/icons-material/ExpandMore";
+import { useTranslation } from "react-i18next";
 import FilterListItem from "./FilterListItem";
 import { useContractsStore } from "../store/contractsStore";
 import { useEffect, useState } from "react";
@@ -47,6 +48,8 @@ const FilterList = ({
   const { contracts } = useContractsStore();
   const [showCheckboxes, setShowCheckboxes] = useState(true);
   const [checkedFilter, setCheckedFilter] = useState<string[]>([]);
+
+  const { t } = useTranslation();
 
   // show only unique values for filtering in case one buyer shows up multiple times
   const buyerFiltersToDisplay = Array.from(
@@ -113,11 +116,11 @@ const FilterList = ({
         </Box>
       )}
       <Typography variant="h6" pl={2} pb={3}>
-        Filter contracts
+        {t('filterTitle')}
       </Typography>
       <Box mb={2}>
         <ListItemButton onClick={handleToggleFilterGroup}>
-          <ListItemText primary="Buyer" />
+          <ListItemText primary={t('buyer')} />
           {showCheckboxes ? <ExpandLess /> : <ExpandMore />}
         </ListItemButton>
         <Collapse in={showCheckboxes} timeout="auto" unmountOnExit>

@@ -4,6 +4,7 @@ import {
   ListItemButton,
   Checkbox,
 } from "@mui/material";
+import { useTranslation } from "react-i18next";
 
 type Props = {
   handleToggleCheckbox: (propertyToFilter: string) => void;
@@ -18,6 +19,8 @@ const FilterListItem = ({
   propertyToFilter,
   isChecked,
 }: Props) => {
+  const { t } = useTranslation();
+
   return (
     <ListItem>
       <ListItemButton

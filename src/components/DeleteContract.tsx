@@ -5,6 +5,7 @@ import {
   DialogActions,
   Button,
 } from "@mui/material";
+import { useTranslation } from "react-i18next";
 import { useContractsStore } from "../store/contractsStore";
 
 type Props = {
@@ -21,24 +22,25 @@ const DeleteContract = ({
   onClose,
 }: Props) => {
   const { deleteContract } = useContractsStore();
+  const { t } = useTranslation();
 
   const handleDelete = () => {
-    deleteContract(contractId)
+    deleteContract(contractId);
     onClose();
   };
 
   return (
     <Dialog open={isDeleteModalOpen} onClose={onClose}>
-      <DialogTitle>Delete contract</DialogTitle>
+      <DialogTitle>{t("deleteTitle")}</DialogTitle>
       <DialogContentText px={3}>
-        Are you sure you want to delete contract number {contractNumber}?
+        {t("deleteText")} {contractNumber}?
       </DialogContentText>
       <DialogActions sx={{ margin: "1rem 1rem 1rem 0" }}>
         <Button onClick={onClose} variant="outlined" color="error">
-          Cancel
+          {t("cancelButton")}
         </Button>
         <Button onClick={handleDelete} variant="contained" color="error">
-          Delete
+          {t("deleteButton")}
         </Button>
       </DialogActions>
     </Dialog>

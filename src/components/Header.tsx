@@ -18,7 +18,7 @@ type Props = {
 };
 
 const Header = ({ title, isDesktop, toggleDrawer }: Props) => {
-  const isContractsPage = title === "Contracts";
+  const isContractsPage = title === "Contracts" || title === "Ugovori";
   const shouldShowFilterButton = !isDesktop && isContractsPage;
 
   return (
@@ -31,7 +31,7 @@ const Header = ({ title, isDesktop, toggleDrawer }: Props) => {
         alignItems="center"
         justifyContent={isContractsPage ? "space-between" : "center"}
         ml={isContractsPage && isDesktop ? 7 : 0}
-        maxWidth={900}
+        maxWidth={isContractsPage && isDesktop ? 900 : "100%"}
       >
         {shouldShowFilterButton && (
           <Grid pl={3} item>

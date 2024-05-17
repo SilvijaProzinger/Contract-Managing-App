@@ -9,6 +9,7 @@ import {
   Button,
   InputAdornment,
 } from "@mui/material";
+import { useTranslation } from "react-i18next";
 import { useContractsStore } from "../store/contractsStore";
 import { Contract } from "../types/types";
 
@@ -26,6 +27,8 @@ const EditContract = ({ contractId, isEditModalOpen, onClose }: Props) => {
 
   const [editedContract, setEditedContract] = useState<Contract>(contract);
   const [invalidStatus, setInvalidStatus] = useState(false);
+
+  const { t } = useTranslation();
 
   const validateStatusChange = useCallback(
     (newStatus: string) => {
@@ -80,17 +83,15 @@ const EditContract = ({ contractId, isEditModalOpen, onClose }: Props) => {
 
   return (
     <Dialog open={isEditModalOpen} onClose={onClose}>
-      <DialogTitle>Edit contract</DialogTitle>
-      <DialogContentText px={3}>
-        This is where you can edit the date of delivery or contract status.
-      </DialogContentText>
+      <DialogTitle>{t("editTitle")}</DialogTitle>
+      <DialogContentText px={3}>{t("editText")}</DialogContentText>
       <DialogContent>
         {contract?.status !== "ISPORUČENO" && (
           <TextField
             margin="dense"
             id="rok_isporuke"
             name="rok_isporuke"
-            label="Date of delivery"
+            label={t("deliveryDate")}
             fullWidth
             value={editedContract?.rok_isporuke || ""}
             onChange={handleInputChange}
@@ -117,10 +118,12 @@ const EditContract = ({ contractId, isEditModalOpen, onClose }: Props) => {
           onChange={handleInputChange}
         />
       </DialogContent>
-      <DialogActions sx={{ margin: '0 1rem 1rem 0'}}>
-        <Button onClick={onClose} variant='outlined'>Cancel</Button>
+      <DialogActions sx={{ margin: "0 1rem 1rem 0" }}>
+        <Button onClick={onClose} variant="outlined">
+          {t("closeButton")}
+        </Button>
         <Button onClick={handleSubmit} variant="contained">
-          Save
+          {t("saveButton")}
         </Button>
       </DialogActions>
     </Dialog>

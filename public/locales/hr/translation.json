@@ -14,10 +14,13 @@
   "editText": "Ovdje možete urediti datum dostave ili status ugovora.",
   "cancelButton": "Otkaži",
   "saveButton": "Spremi",
+  "closeButton": "Zatvori",
   "deleteTitle": "Izbriši ugovor",
   "deleteText": "Jeste li sigurni da želite izbrisatu ugovor pod brojem",
   "addNewTitle": "Dodaj novi ugovor",
   "backLink": "Natrag na ugovore",
   "items": "Artikli",
-  "provider": "Dobavljač"
+  "provider": "Dobavljač",
+  "detailsError": "Nema dostupnih podataka. Molimo odaberite drugi ugovor.",
+  "errorHome": "Došlo je do pogreške. Molimo osvježite stranicu i pokušajte ponovno."
 }

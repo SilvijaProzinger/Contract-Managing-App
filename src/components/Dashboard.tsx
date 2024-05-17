@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Container, Typography } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
+import { useTranslation } from "react-i18next";
 import Header from "./Header";
 import ContractList from "./ContractList";
 import FilterList from "./FilterList";
@@ -19,6 +20,8 @@ const Dashboard = ({ loading, error }: Props) => {
   const theme = useTheme();
   const isDesktop = useMediaQuery(theme.breakpoints.up("md"));
 
+  const { t } = useTranslation();
+
   const toggleDrawer = () => {
     setOpen(!open);
   };
@@ -34,7 +37,7 @@ const Dashboard = ({ loading, error }: Props) => {
       sx={{ position: "relative", minHeight: "100vh" }}
     >
       <Header
-        title={"Contracts"}
+        title={t('contractsTitle')}
         isDesktop={isDesktop}
         toggleDrawer={toggleDrawer}
       />
@@ -46,9 +49,7 @@ const Dashboard = ({ loading, error }: Props) => {
       />
       {loading && <CircularProgress />}
       {error ? (
-        <Typography variant="h3">
-          An error has occured. Please refresh the page and try again.
-        </Typography>
+        <Typography variant="h3">{t("errorHome")}</Typography>
       ) : (
         <Container
           maxWidth="md"

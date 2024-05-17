@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Stack, Button, Container, Pagination } from "@mui/material";
 import { Contract } from "../types/types";
 import { useContractsStore } from "../store/contractsStore";
+import { useTranslation } from "react-i18next";
 import ContractListItem from "./ContractListItem";
 import AddNewContract from "./AddNewContract";
 
@@ -17,6 +18,8 @@ const ContractList = ({ filters }: Props) => {
   );
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 4;
+
+  const { t } = useTranslation();
 
   // filter the contracts list based on selected filters
   useEffect(() => {
@@ -72,7 +75,7 @@ const ContractList = ({ filters }: Props) => {
         sx={{ width: "fit-content", marginBottom: "2rem" }}
         onClick={handleOpenNewModal}
       >
-        Add new contract
+        {t('addNewButton')}
       </Button>
       <Stack spacing={4} minHeight={700}>
         {paginatedContracts.map((contract: Contract) => (

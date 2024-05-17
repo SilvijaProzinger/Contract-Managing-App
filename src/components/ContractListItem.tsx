@@ -3,6 +3,7 @@ import { Link as RouterLink } from "react-router-dom";
 import { Card, Typography, Box, Button, Link, Skeleton } from "@mui/material";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import { styled } from "@mui/material/styles";
+import { useTranslation } from "react-i18next";
 import { Contract } from "../types/types";
 import StatusBadge from "./StatusBadge";
 import EditContract from "./EditContract";
@@ -32,6 +33,8 @@ const ContractListItem = ({ contract }: Props) => {
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+
+  const { t } = useTranslation();
 
   const openEditModal = () => {
     setIsEditModalOpen(true);
@@ -74,9 +77,9 @@ const ContractListItem = ({ contract }: Props) => {
           <Typography variant="h6" pb={1}>
             {contract.kupac}
           </Typography>
-          <Typography>Contract number: {contract.broj_ugovora}</Typography>
+          <Typography>{t('contractNumber')}: {contract.broj_ugovora}</Typography>
           <Typography>
-            Date of delivery: {convertDate(contract.rok_isporuke)}
+            {t('deliveryDate')}: {convertDate(contract.rok_isporuke)}
           </Typography>
         </Box>
         <StatusBadge status={contract.status} />
@@ -89,7 +92,7 @@ const ContractListItem = ({ contract }: Props) => {
         fontWeight={600}
         sx={{ display: "flex", alignContent: "center", marginTop: "1rem" }}
       >
-        View contract details
+        {t('viewLink')}
         <ArrowForwardIcon />
       </Link>
       <Box sx={{ mt: 3, display: "flex" }}>
@@ -98,10 +101,10 @@ const ContractListItem = ({ contract }: Props) => {
           onClick={openEditModal}
           sx={{ marginRight: "1rem" }}
         >
-          Edit
+          {t('editButton')}
         </GradientButtonPrimary>
         <GradientButtonError onClick={openDeleteModal} color='secondary' variant="outlined">
-          Delete
+          {t('deleteButton')}
         </GradientButtonError>
       </Box>
       <EditContract
