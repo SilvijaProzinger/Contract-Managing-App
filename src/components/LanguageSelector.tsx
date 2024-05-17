@@ -15,7 +15,7 @@ const LanguageSelector = () => {
   };
 
   return (
-    <FormControl variant="outlined" style={{ minWidth: 120, marginRight: '25px' }} size="small">
+    <FormControl variant="outlined" style={{ minWidth: 100, marginRight: '25px' }} size="small">
       <InputLabel id="language-selector-label" sx={{ display: "none" }}>
         Language
       </InputLabel>
