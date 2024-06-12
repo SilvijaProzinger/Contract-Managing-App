@@ -75,21 +75,21 @@ const ContractList = ({ filters }: Props) => {
         sx={{ width: "fit-content", marginBottom: "2rem" }}
         onClick={handleOpenNewModal}
       >
-        {t('addNewButton')}
+        {t("addNewButton")}
       </Button>
       <Stack spacing={4} minHeight={700}>
         {paginatedContracts.map((contract: Contract) => (
           <ContractListItem key={contract.id} contract={contract} />
         ))}
       </Stack>
-      <Pagination
-        count={Math.ceil(filteredContractList.length / itemsPerPage)}
-        color="primary"
-        variant="outlined"
-        page={currentPage}
-        onChange={handleChangePage}
-        sx={{ marginTop: "3rem" }}
-      />
+        <Pagination
+          count={Math.ceil(filteredContractList.length / itemsPerPage)}
+          color="primary"
+          variant="outlined"
+          page={currentPage}
+          onChange={handleChangePage}
+          sx={{ marginTop: "3rem" }}
+        />
       <AddNewContract
         isNewModalOpen={isNewModalOpen}
         onClose={handleCloseNewModal}

@@ -28,18 +28,4 @@ This is a contract managing app made in React and Typescript, styled with Materi
 * `react-i18n`
 * `mockAPI`
 
-## TO-DO - what should be implemented to make the app production-ready 
-
-The following features are what I consider should be implemented to make the app easier to use, scale better and be production ready. 
-
-* Build the app and host it
-* ~~Replace the dummy API with a real API and implement better fetching and error handling~~
-* Implement authorization
-* Implement caching (for example once the details about one contract have been fetched from the store, cache the data for a short while if the user accidentaly navigates away from the page)
-* ~~Add pagination and display only few contracts on each page~~
-* Replace every date input field in edit and add forms with date picker for convinience 
-* ~~Add a language support for both English and Croatian~~
-* Refactor the code and break the components down even further
-* Create a folder for each customized UI component so that they can be reused in multiple components as the app grows
-* ~~Add images for items~~
 

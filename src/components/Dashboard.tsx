@@ -5,7 +5,7 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 import { useTranslation } from "react-i18next";
 import Header from "./Header";
 import ContractList from "./ContractList";
-import FilterList from "./FilterList";
+import FilterContracts from "./FilterContracts";
 import CircularProgress from "@mui/material/CircularProgress";
 
 type Props = {
@@ -15,7 +15,6 @@ type Props = {
 
 const Dashboard = ({ loading, error }: Props) => {
   const [open, setOpen] = useState(false);
-  //const [screenWidth, setScreenWidth] = useState(window.innerWidth);
   const [filters, setFilters] = useState<string[]>([]);
   const theme = useTheme();
   const isDesktop = useMediaQuery(theme.breakpoints.up("md"));
@@ -37,27 +36,27 @@ const Dashboard = ({ loading, error }: Props) => {
       sx={{ position: "relative", minHeight: "100vh" }}
     >
       <Header
-        title={t('contractsTitle')}
+        title={t("contractsTitle")}
         isDesktop={isDesktop}
         toggleDrawer={toggleDrawer}
       />
-      <FilterList
+      <FilterContracts
         isDesktop={isDesktop}
         open={open}
         toggleDrawer={toggleDrawer}
         filterContracts={filterContracts}
       />
       {loading && <CircularProgress />}
-      {error ? (
-        <Typography variant="h3">{t("errorHome")}</Typography>
-      ) : (
-        <Container
-          maxWidth="md"
-          sx={{ p: 4, marginLeft: isDesktop ? "22rem" : 0 }}
-        >
+      <Container
+        maxWidth="md"
+        sx={{ p: 4, marginLeft: isDesktop ? "22rem" : 0 }}
+      >
+        {error ? (
+          <Typography variant="h4">{t("errorHome")}</Typography>
+        ) : (
           <ContractList filters={filters} />
-        </Container>
-      )}
+        )}
+      </Container>
     </Container>
   );
 };
