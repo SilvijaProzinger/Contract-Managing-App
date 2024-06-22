@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { Stack, Button, Container, Pagination } from "@mui/material";
 import { Contract } from "../types/types";
 import { useContractsStore } from "../store/contractsStore";
@@ -21,31 +21,32 @@ const ContractList = ({ filters }: Props) => {
 
   const { t } = useTranslation();
 
+  const statusFilterOutput = useMemo(() => {
+    return contracts.filter((contract: Contract) => {
+      if (filters.includes("aktivan")) {
+        return contract.status === "KREIRANO" || contract.status === "NARUČENO";
+      } else if (filters.includes("neaktivan")) {
+        return contract.status === "ISPORUČENO";
+      } else {
+        return contract.status;
+      }
+    });
+  }, [contracts, filters]);
+
   // filter the contracts list based on selected filters
   useEffect(() => {
     if (filters.length > 0) {
-      const statusFilter = contracts.filter((contract: Contract) => {
-        if (filters.includes("aktivan")) {
-          return (
-            contract.status === "KREIRANO" || contract.status === "NARUČENO"
-          );
-        } else if (filters.includes("neaktivan")) {
-          return contract.status === "ISPORUČENO";
-        } else {
-          return contract.status;
-        }
-      });
-
       const filteredList = contracts.filter((contract: Contract) => {
         return (
-          filters.includes(contract.kupac) && statusFilter.includes(contract)
+          filters.includes(contract.kupac) && statusFilterOutput.includes(contract)
         );
       });
       setFilteredContractList(filteredList);
+      setCurrentPage(1);
     } else {
       setFilteredContractList(contracts);
     }
-  }, [contracts, filters]);
+  }, [statusFilterOutput, contracts, filters]);
 
   const handleOpenNewModal = () => {
     setIsNewModal(true);
@@ -82,14 +83,14 @@ const ContractList = ({ filters }: Props) => {
           <ContractListItem key={contract.id} contract={contract} />
         ))}
       </Stack>
-        <Pagination
-          count={Math.ceil(filteredContractList.length / itemsPerPage)}
-          color="primary"
-          variant="outlined"
-          page={currentPage}
-          onChange={handleChangePage}
-          sx={{ marginTop: "3rem" }}
-        />
+      <Pagination
+        count={Math.ceil(filteredContractList.length / itemsPerPage)}
+        color="primary"
+        variant="outlined"
+        page={currentPage}
+        onChange={handleChangePage}
+        sx={{ marginTop: "3rem" }}
+      />
       <AddNewContract
         isNewModalOpen={isNewModalOpen}
         onClose={handleCloseNewModal}

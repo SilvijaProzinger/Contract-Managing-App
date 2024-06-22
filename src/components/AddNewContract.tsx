@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { useTranslation } from "react-i18next";
 import { Contract } from "../types/types";
 import { useContractsStore } from "../store/contractsStore";
 import AddNewContractForm from "./AddNewContractForm";
@@ -51,7 +50,8 @@ const AddNewContract = ({ isNewModalOpen, onClose }: Props) => {
     }
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = (e:React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
     addContract(newContractData);
     //handleAddNewContract(newContractData);
     onClose();

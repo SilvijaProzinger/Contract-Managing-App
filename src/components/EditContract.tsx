@@ -62,7 +62,8 @@ const EditContract = ({ contractId, isEditModalOpen, onClose }: Props) => {
     }
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
     if (editedContract && !invalidStatus) {
       handleUpdateContract(editedContract);
       onClose();
