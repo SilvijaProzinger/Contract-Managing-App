@@ -68,7 +68,6 @@ const AddNewContract = ({ isNewModalOpen, onClose }: Props) => {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    checkDateValidity();
     if (!dateError) {
       addContract(newContractData);
       //handleAddNewContract(newContractData);
@@ -84,6 +83,7 @@ const AddNewContract = ({ isNewModalOpen, onClose }: Props) => {
       isNewModalOpen={isNewModalOpen}
       onClose={onClose}
       dateError={dateError}
+      checkDateValidity={checkDateValidity}
     />
   );
 };

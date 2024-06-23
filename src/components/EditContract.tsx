@@ -17,6 +17,7 @@ const EditContract = ({ contractId, isEditModalOpen, onClose }: Props) => {
 
   const [editedContract, setEditedContract] = useState<Contract>(contract);
   const [invalidStatus, setInvalidStatus] = useState(false);
+  const [dateError, setDateError] = useState(false);
 
   const validateStatusChange = useCallback(
     (newStatus: string) => {
@@ -62,9 +63,20 @@ const EditContract = ({ contractId, isEditModalOpen, onClose }: Props) => {
     }
   };
 
+  
+  const checkDateValidity = () => {
+    const akontacijaDate = new Date(editedContract.datum_akontacije);
+    const isporukaDate = new Date(editedContract.rok_isporuke);
+    if (akontacijaDate > isporukaDate) {
+      setDateError(true);
+      return;
+    } else setDateError(false);
+  };
+
+
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    if (editedContract && !invalidStatus) {
+    if (editedContract && !invalidStatus && !dateError) {
       handleUpdateContract(editedContract);
       onClose();
     }
@@ -79,6 +91,8 @@ const EditContract = ({ contractId, isEditModalOpen, onClose }: Props) => {
       contract={contract}
       editedContract={editedContract}
       invalidStatus={invalidStatus}
+      dateError={dateError}
+      checkDateValidity={checkDateValidity}
     />
   );
 };

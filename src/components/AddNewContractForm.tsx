@@ -18,6 +18,7 @@ type Props = {
   handleInputChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
   dateError: boolean;
+  checkDateValidity: () => void;
 };
 
 const AddNewContractForm = ({
@@ -26,7 +27,8 @@ const AddNewContractForm = ({
   newContractData,
   handleInputChange,
   handleSubmit,
-  dateError
+  dateError,
+  checkDateValidity,
 }: Props) => {
   const { t } = useTranslation();
 
@@ -83,6 +85,7 @@ const AddNewContractForm = ({
               InputLabelProps={{ shrink: true }}
               error={dateError}
               helperText={dateError ? t('paymentDateNewError') : ''}
+              onBlur={checkDateValidity}
             />
           </DialogContent>
           <DialogActions sx={{ margin: "0 1rem 1rem 0" }}>

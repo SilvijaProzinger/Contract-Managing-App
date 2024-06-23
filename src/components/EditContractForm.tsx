@@ -19,6 +19,8 @@ type Props = {
   handleInputChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   invalidStatus: boolean;
   handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
+  dateError: boolean;
+  checkDateValidity: () => void;
 };
 
 const EditContractForm = ({
@@ -29,6 +31,8 @@ const EditContractForm = ({
   handleInputChange,
   invalidStatus,
   handleSubmit,
+  dateError,
+  checkDateValidity,
 }: Props) => {
   const { t } = useTranslation();
   return (
@@ -50,6 +54,9 @@ const EditContractForm = ({
                 type="date"
                 InputLabelProps={{ shrink: true }}
                 required
+                onBlur={checkDateValidity}
+                error={dateError}
+                helperText={dateError ? t("paymentDateNewError") : ""}
               />
             )}
             <TextField
@@ -57,14 +64,14 @@ const EditContractForm = ({
               id="status"
               name="status"
               label="Status"
-              error={invalidStatus}
-              helperText={
-                invalidStatus ? "Please enter a valid status change" : ""
-              }
               fullWidth
               value={editedContract?.status || ""}
               onChange={handleInputChange}
               required
+              error={invalidStatus}
+              helperText={
+                invalidStatus ? "Please enter a valid status change" : ""
+              }
             />
           </DialogContent>
           <DialogActions sx={{ margin: "0 1rem 1rem 0" }}>
