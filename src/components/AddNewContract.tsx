@@ -27,6 +27,7 @@ const AddNewContract = ({ isNewModalOpen, onClose }: Props) => {
   const [newContractData, setNewContractData] = useState<Contract>(
     contractDataInitial
   );
+  const [dateError, setDateError] = useState(false);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -50,11 +51,29 @@ const AddNewContract = ({ isNewModalOpen, onClose }: Props) => {
     }
   };
 
-  const handleSubmit = (e:React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
-    addContract(newContractData);
-    //handleAddNewContract(newContractData);
+  const checkDateValidity = () => {
+    const akontacijaDate = new Date(newContractData.datum_akontacije);
+    const isporukaDate = new Date(newContractData.rok_isporuke);
+    if (akontacijaDate > isporukaDate) {
+      setDateError(true);
+      return;
+    } else setDateError(false);
+  };
+
+  const resetForm = () => {
+    setNewContractData(contractDataInitial);
+    setDateError(false);
     onClose();
+  };
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    checkDateValidity();
+    if (!dateError) {
+      addContract(newContractData);
+      //handleAddNewContract(newContractData);
+      resetForm();
+    }
   };
 
   return (
@@ -64,6 +83,7 @@ const AddNewContract = ({ isNewModalOpen, onClose }: Props) => {
       newContractData={newContractData}
       isNewModalOpen={isNewModalOpen}
       onClose={onClose}
+      dateError={dateError}
     />
   );
 };

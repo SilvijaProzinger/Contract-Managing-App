@@ -20,6 +20,7 @@ const DrawerCustom = styled(Drawer)({
   bottom: "0",
   top: "0",
   "& .MuiDrawer-paper": {
+    overflow: "visible",
     position: "absolute",
     width: "300px",
     paddingTop: "2rem",

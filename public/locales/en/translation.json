@@ -23,5 +23,6 @@
   "items": "Items",
   "provider": "Provider",
   "detailsError": "No data found. Please try a different contract.",
-  "errorHome": "An error has occured. Please refresh the page and try again."
+  "errorHome": "An error has occured. Please refresh the page and try again.",
+  "paymentDateNewError": "Advance payment date cannot be set after delivery date."
 }

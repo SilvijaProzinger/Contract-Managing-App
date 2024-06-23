@@ -23,5 +23,6 @@
   "items": "Artikli",
   "provider": "Dobavljač",
   "detailsError": "Nema dostupnih podataka. Molimo odaberite drugi ugovor.",
-  "errorHome": "Došlo je do pogreške. Molimo osvježite stranicu i pokušajte ponovno."
+  "errorHome": "Došlo je do pogreške. Molimo osvježite stranicu i pokušajte ponovno.",
+  "paymentDateNewError": "Datum akontacije ne može biti nakon datuma dostave."
 }

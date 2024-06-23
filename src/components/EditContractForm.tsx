@@ -36,7 +36,7 @@ const EditContractForm = ({
       <DialogTitle>{t("editTitle")}</DialogTitle>
       <DialogContentText px={3}>{t("editText")}</DialogContentText>
       <form onSubmit={handleSubmit}>
-        <FormControl>
+        <FormControl sx={{ width: "100%" }}>
           <DialogContent>
             {contract?.status !== "ISPORUČENO" && (
               <TextField
