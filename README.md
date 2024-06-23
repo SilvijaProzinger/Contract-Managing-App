@@ -2,6 +2,10 @@
 
 This is a contract managing app made in React and Typescript, styled with Material-UI and state managed by Zustand. This app allows the user to view a list of contracts, edit them, filter them, add a new contract and view details about selected contract along with related items. The data is fetched from a dummy API.
 
+### GIF preview:
+
+![](https://github.com/SilvijaProzinger/Contract-Managing-App/blob/main/public/gif-preview.gif)
+
 ## Features
 
 * List contracts fetched from a dummy API
