@@ -18,6 +18,7 @@ type Props = {
   editedContract: Contract;
   handleInputChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   invalidStatus: boolean;
+  checkStatusValidity: (newStatus: string) => void;
   handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
   dateError: boolean;
   checkDateValidity: () => void;
@@ -30,6 +31,7 @@ const EditContractForm = ({
   editedContract,
   handleInputChange,
   invalidStatus,
+  checkStatusValidity,
   handleSubmit,
   dateError,
   checkDateValidity,
@@ -72,6 +74,7 @@ const EditContractForm = ({
               helperText={
                 invalidStatus ? "Please enter a valid status change" : ""
               }
+              onBlur={(e) => checkStatusValidity(e.target.value)}
             />
           </DialogContent>
           <DialogActions sx={{ margin: "0 1rem 1rem 0" }}>
