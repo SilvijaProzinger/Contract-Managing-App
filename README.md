@@ -4,7 +4,7 @@ This is a contract managing app made in React and Typescript, styled with Materi
 
 ### GIF preview:
 
-![](https://github.com/SilvijaProzinger/Contract-Managing-App/blob/main/public/gif-preview.gif)
+![](https://github.com/SilvijaProzinger/Contract-Managing-App/blob/master/public/gif-preview.gif)
 
 ## Features
 
